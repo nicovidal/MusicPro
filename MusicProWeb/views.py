@@ -42,7 +42,7 @@ def create_user(request):
             response = requests.post(url, data=data)
 
             if response.status_code == 201:  # Usuario creado exitosamente
-                return redirect('usuario')  # Redirige a una página de éxito
+                return redirect('home_usuario')  # Redirige a una página de éxito
             else:
                 error_message = 'Error al crear el usuario'
         else:
