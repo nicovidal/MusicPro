@@ -21,6 +21,7 @@ from api.api import UserAPI
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('api.urls')),
-    path('api/new/create_user',UserAPI.as_view(),name="api_create_user")
+    path('api/new/create_user',UserAPI.as_view(),name="api_create_user"),
+    path('',include('MusicProWeb.urls'))
 
 ]
