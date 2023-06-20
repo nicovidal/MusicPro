@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from .models import CustomUser 
 from .forms import *
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -61,12 +61,13 @@ def create_user(request):
             password = form.cleaned_data['password']
             
             # Genera un nombre de usuario único basado en el correo electrónico
-            username = email  # Utiliza la parte antes del '@' como nombre de usuario
+            username = email  # Utiliza el correo electrónico como nombre de usuario
 
             # Crea el usuario en Django
-            user = User.objects.create_user(username=username, email=email, password=password)
+            user = CustomUser.objects.create_user(username=username, email=email, password=password)  # Utiliza CustomUser en lugar de User
             user.first_name = first_name
             user.last_name = last_name
+            user.user_type = form.cleaned_data['user_type']  # Guarda el tipo de usuario
             user.save()
 
             # Redirige a la página de inicio de sesión
