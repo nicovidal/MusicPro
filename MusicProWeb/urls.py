@@ -10,5 +10,6 @@ urlpatterns = [
     path('contador/', homeContador, name="home_contador"),
     path('administrador/', homeAdministrador, name="home_administrador"),
     path('login/', login_view, name="login"),
-    path('', home, name="home"),
+    path('', obtener_productos, name="home"),
+
 ]

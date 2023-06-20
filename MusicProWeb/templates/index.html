@@ -128,10 +128,14 @@
 
 
 
-
     <h1>Nuevos productos</h1>
-    <h1>Ofertas</h1>
 
+    <h2>Productos</h2>
+    {% for producto in productos %}
+       <h1>{{ producto.nombre }}</h1>
+    {% endfor %}
+    
+    <h2>Ofertas</h2>
 
 
     <div class="wrapper">

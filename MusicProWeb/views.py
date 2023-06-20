@@ -3,11 +3,10 @@ from django.contrib.auth import authenticate, login
 from .models import CustomUser 
 from .forms import *
 from django.contrib.auth.forms import AuthenticationForm
+import requests
 
 
 # Create your views here.
-def home(request):
-    return render (request,'index.html')
 
 def homeUsuario(request):
     return render(request,'cliente/home.html')
@@ -125,3 +124,14 @@ def create_cliente(request):
         error_message = None
 
     return render(request, 'auth/create_cliente.html', {'form': form, 'error_message': error_message})
+
+""" !-consumo de api """
+
+def obtener_productos(request):
+    api_url = 'http://127.0.0.1:8000/api/productos/'  # URL de la API de productos
+    
+    response = requests.get(api_url)  # Realiza una solicitud GET a la API
+    data = response.json()  # Obtiene los datos de los productos en formato JSON
+    productos = data['productos']  # Accede a la lista de productos
+    
+    return render(request, 'index.html', {'productos': productos})
