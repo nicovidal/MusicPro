@@ -10,7 +10,7 @@ def home(request):
     return render (request,'index.html')
 
 def homeUsuario(request):
-    return render(request,'usuario/home.html')
+    return render(request,'cliente/home.html')
 
 def homeVendedor(request):
     return render (request,'vendedor/home.html')
@@ -20,6 +20,8 @@ def homeContador(request):
 
 def homeBodeguero(request):
     return render (request,'bodeguero/home.html')
+def homeAdministrador(request):
+    return render (request,'administrador/home.html')
 
 
 
@@ -45,8 +47,12 @@ def login_view(request):
                     return redirect("home_vendedor")
                 elif user.user_type == 'contador':
                     return redirect("home_contador")
+                elif user.user_type == 'administrador':
+                    return redirect("home_administrador")
+                elif user.user_type == 'Cliente':
+                    return redirect("home_cliente")
                 else:
-                    return redirect("cliente")
+                    return redirect("login")
             
         # Si la autenticación falla o los datos son inválidos, muestra el formulario con un mensaje de error
         error_message = 'Credenciales inválidas. Inténtalo nuevamente.'
@@ -87,3 +93,34 @@ def create_user(request):
         error_message = None
 
     return render(request, 'auth/create_user.html', {'form': form, 'error_message': error_message})
+
+
+def create_cliente(request):
+    if request.method == 'POST':
+        form = ClienteCreationForm(request.POST)
+        if form.is_valid():
+            # Obtén los datos del formulario
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            
+            # Genera un nombre de usuario único basado en el correo electrónico
+            username = email  # Utiliza el correo electrónico como nombre de usuario
+
+            # Crea el usuario en Django
+            user = CustomUser.objects.create_user(username=username, email=email, password=password)  # Utiliza CustomUser en lugar de User
+            user.first_name = first_name
+            user.last_name = last_name
+            user.user_type = 'Cliente'# Guarda el tipo de usuario
+            user.save()
+
+            # Redirige a la página de inicio de sesión
+            return redirect("login")  # Redirige a una página de éxito
+        else:
+            error_message = 'Formulario inválido'
+    else:
+        form = ClienteCreationForm()
+        error_message = None
+
+    return render(request, 'auth/create_cliente.html', {'form': form, 'error_message': error_message})

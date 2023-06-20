@@ -3,10 +3,11 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     USER_TYPES = (
-        ('admin', 'Administrador'),
-        ('employee', 'Empleado'),
-        ('customer', 'Cliente'),
+        ('administrador', 'Administrador'),
+        ('vendedor', 'Vendedor'),
+        ('cliente', 'Cliente'),
         ('guest', 'Invitado'),
+        ('bodeguero', 'Bodeguero'),
     )
     
     user_type = models.CharField(max_length=20, choices=USER_TYPES)
