@@ -6,6 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm
 
 
 # Create your views here.
+def home(request):
+    return render (request,'index.html')
 
 def homeUsuario(request):
     return render(request,'usuario/home.html')
@@ -18,6 +20,7 @@ def homeContador(request):
 
 def homeBodeguero(request):
     return render (request,'bodeguero/home.html')
+
 
 
 class EmailAuthenticationForm(AuthenticationForm):
