@@ -9,6 +9,11 @@ class Producto(models.Model):
     nombre=models.CharField(max_length=50,null=True)
     precio=models.CharField(max_length=50,null=True)
     modelo=models.CharField(max_length=50,null=True)
+    oferta=models.BooleanField(null=True)
+    nuevo=models.BooleanField(null=True)
+    stock=models.IntegerField(null=True)
+    imagen=models.ImageField(upload_to='imagenProductos',null=True,blank=True)
+
     
      
     def __str__(self):

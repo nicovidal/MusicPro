@@ -133,5 +133,4 @@ def obtener_productos(request):
     response = requests.get(api_url)  # Realiza una solicitud GET a la API
     data = response.json()  # Obtiene los datos de los productos en formato JSON
     productos = data['productos']  # Accede a la lista de productos
-    
     return render(request, 'index.html', {'productos': productos})
