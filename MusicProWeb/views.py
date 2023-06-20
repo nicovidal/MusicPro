@@ -20,6 +20,7 @@ def homeContador(request):
 
 def homeBodeguero(request):
     return render (request,'bodeguero/home.html')
+
 def homeAdministrador(request):
     return render (request,'administrador/home.html')
 
