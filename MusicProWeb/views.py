@@ -37,8 +37,16 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("home_bodeguero")  # Redirige a la página de inicio
-            print('fui pal usuario')
+                
+                # Redirige a diferentes páginas según el tipo de usuario
+                if user.user_type == 'bodeguero':
+                    return redirect("home_bodeguero")
+                elif user.user_type == 'vendedor':
+                    return redirect("home_vendedor")
+                elif user.user_type == 'contador':
+                    return redirect("home_contador")
+                else:
+                    return redirect("cliente")
             
         # Si la autenticación falla o los datos son inválidos, muestra el formulario con un mensaje de error
         error_message = 'Credenciales inválidas. Inténtalo nuevamente.'
