@@ -31,7 +31,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                         <li class="">
-                            <a class="dropdown-item " href="/guitarras">Guitarra</a>
+                            <a class="dropdown-item " href="#">Guitarra</a>
                             <ul class="">
                                 <li><a class="dropdown-item" href="/solido">Guitarra cuerpo sólido</a></li>
                                 <li><a class="dropdown-item" href="/acusticas">Guitarra Acústicas</a></li>
@@ -68,7 +68,7 @@
                                 <li><a class="dropdown-item" href="#">Roland</a></li>
                                 <li><a class="dropdown-item" href="#">Alesis</a></li>
                           
-                            </ul>
+                            </ul> 
                         </li>
                     </ul>
                 </li>
@@ -127,37 +127,15 @@
     <!-- navbar-->
 
 
-    <h1>Nuevos productos</h1>
-    <div class="row">
-        {% for producto in productos %}
-            {% if producto.nuevo %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ producto.imagen }}"  class="card-img-top img-fluid" alt="{{ producto.nombre }} " style="width: 400px; height: auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ producto.nombre }}</h5>
-                            <p class="card-text">Precio: {{ producto.precio }}</p>
-                            <p class="card-text">Modelo: {{ producto.modelo }}</p>
-                            <p class="card-text">Marca: {{ producto.marca }}</p>
-                            <p class="card-text">Código: {{ producto.codigo }}</p>
-                             <h1>Nuevo</h1>
-                            <p class="card-text">Stock: {{ producto.stock }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
     
-    <h1>Productos en oferta</h1>
+    <h1>Bajos</h1>
     <div class="row">
         {% for producto in productos %}
-            {% if producto.oferta %}
+            {% if producto.modelo == 'Acustica' %}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ producto.imagen }}"  class="card-img-top img-fluid" alt="{{ producto.nombre }} " style="width: 400px; height: auto;">
+                        <img src="{{ producto.imagen }}"  class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 400px; height: auto;">
                         <div class="card-body">
-                            <h1>Oferta especial</h1>
                             <h5 class="card-title">{{ producto.nombre }}</h5>
                             <p class="card-text">Precio: {{ producto.precio }}</p>
                             <p class="card-text">Modelo: {{ producto.modelo }}</p>
