@@ -141,7 +141,7 @@ def obtener_guitarras_acusticas(request):
     response = requests.get(api_url) 
     data = response.json()  
     productos = data['productos']  
-    return render(request, 'productos/guitarrasAcusticas.html', {'productos': productos})
+    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarrasAcusticas.html', {'productos': productos})
 
 def obtener_guitarras_electricas(request):
     api_url = 'http://127.0.0.1:8000/api/productos/'  
@@ -149,17 +149,17 @@ def obtener_guitarras_electricas(request):
     response = requests.get(api_url) 
     data = response.json()  
     productos = data['productos']  
-    return render(request, 'productos/guitarrasElectricas.html', {'productos': productos})
+    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarrasElectricas.html', {'productos': productos})
 
 def obtener_guitarras_solido(request):
     api_url = 'http://127.0.0.1:8000/api/productos/'  
     response = requests.get(api_url)  
     data = response.json() 
     productos = data['productos']
-    return render(request, 'productos/guitarrasCuerpoSolido.html', {'productos': productos})
+    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarrasCuerpoSolido.html', {'productos': productos})
 def obtener_guitarras(request):
     api_url = 'http://127.0.0.1:8000/api/productos/'  
     response = requests.get(api_url)  
     data = response.json() 
     productos = data['productos']
-    return render(request, 'productos/guitarras.html', {'productos': productos})
+    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarras.html', {'productos': productos})
