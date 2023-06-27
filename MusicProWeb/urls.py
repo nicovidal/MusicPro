@@ -17,7 +17,8 @@ urlpatterns = [
     path('acusticas', obtener_guitarras_acusticas, name="home_acusticas"),
     path('electricas', obtener_guitarras_electricas, name="home_electricas"),
     path('solido',obtener_guitarras_solido,name="home_solido"),
-    path('guitarras',obtener_guitarras,name="home_guitarras")
+    path('guitarras',obtener_guitarras,name="home_guitarras"),
+    path('carrito/',carrito,name="carrito")
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

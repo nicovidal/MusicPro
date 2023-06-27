@@ -163,3 +163,11 @@ def obtener_guitarras(request):
     data = response.json() 
     productos = data['productos']
     return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarras.html', {'productos': productos})
+
+
+
+"""Carrito"""
+def carrito(request):
+    return render(request, 'carro/carrito.html')
+
+
