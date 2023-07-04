@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.http import HttpResponseServerError
 from MusicProWeb.carrito import Carrito
 from requests.exceptions import JSONDecodeError
-
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -180,13 +180,14 @@ def obtener_guitarras(request):
 def carrito(request):
     carrito = Carrito(request)
     productos = carrito.get_productos()  # Obtener los productos del carrito
+    print(productos)
     return render(request, 'carro/carrito.html', {'productos': productos})
 
 
 
-from django.http import HttpResponse
 
 def agregar_producto(request, producto_id):
+ 
     try:
         response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
         response.raise_for_status()  # Verificar si la solicitud fue exitosa

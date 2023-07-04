@@ -127,7 +127,7 @@
     <!-- navbar-->
 
 
-    <div class="fondocarrito">
+    <div class="">
         <div class="alert alert-primary" role="alert">
         <table class="table table-bordered">
             <form  action="/pagar/" method="POST">
@@ -147,12 +147,14 @@
                 {% if request.session.carrito.items %}
                 {% for key, value in request.session.carrito.items %}
                     <tr>
-                        <td>{{value.nombre}}</td>
-                        <td>{{value.acumulado}}</td>
-                        <td>{{value.cantidad}}
-                            <a href="{% url 'Adds' value.producto_id %}" class="badge btn btn-dark badge-dark">+</a>
+                   {% comment %}      <td>{{value.imagen}}</td> {% endcomment %}
+                        <td>{{ value.nombre }}</td>
+                        <td>{{ value }}</td>
+               {% comment %}          <td>{{value.acumulado}}</td> {% endcomment %}
+                    {% comment %}     <td>{{value.cantidad}} {% endcomment %}
+                           {% comment %}  <a href="{% url 'Adds' value.producto_id %}" class="badge btn btn-dark badge-dark">+</a>
                             <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-dark badge-dark" {% if value.cantidad <= 1 %} disabled {% endif%}>-</a>
-                        </td>
+                        </td> {% endcomment %}
                     </tr>
                 {% endfor %}
                 {% else %}
@@ -162,14 +164,11 @@
                     </td>
                 </tr>
                 {% endif %}
-                    <tr>
+             {% comment %}        <tr>
                         <th scope="row">Descuento:</th>
                         <td colspan="2" id="descuento" name="descuento">$ {{descuentos}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Descuento Miembro Fundacion:</th>
-                        <td colspan="2" id="descuentoFundacion" name="descuentoFundacion" value={function()}>$ {{descuentoMiembro}}</td>
-                    </tr>
+                    </tr> {% endcomment %}
+        
                     <tr>
                      
                         <th scope="row">Total:</th>
@@ -179,8 +178,8 @@
                 <tr>
                     <td>
                     <div class="row text-center">
-                        <div class="col-4"><a href="{% url 'productos' %}" class="btn btn-primary btn-lg" >Atras</a></div>
-                        <div class="col-4"><a href="{% url 'CLS' %}" class="btn btn-primary btn-lg" >Limpiar</a></div>
+                        {% comment %} <div class="col-4"><a href="{% url 'productos' %}" class="btn btn-primary btn-lg" >Atras</a></div> {% endcomment %}
+                       {% comment %}  <div class="col-4"><a href="{% url 'CLS' %}" class="btn btn-primary btn-lg" >Limpiar</a></div> {% endcomment %}
                         <div class="col-4"><button type="submit" {% if total_carrito <= 0 %} disabled {% endif%} class="btn btn-primary btn-lg">Pagar</button></div>
                     </div>
                     </td>            
@@ -194,6 +193,8 @@
         </table>
     
         </div>
+
+        
 
 
     
