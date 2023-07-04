@@ -305,3 +305,25 @@ def btn_agregar_producto(request, id):
         else:
             # Si la solicitud a la API falla, muestra un mensaje de error o redirige a una página de error
             return redirect('error')  # Reemplaza 'error' con la URL correcta para la página de error
+        
+def btn_quitar_producto(request, id):
+    # Verificar si el producto ya está en el carrito
+    if 'carrito' in request.session and str(id) in request.session['carrito']:
+        # Obtener los detalles del producto desde el carrito
+        producto = request.session['carrito'][str(id)]
+
+        # Decrementar la cantidad solo si es mayor que 0
+        if producto['cantidad'] > 0:
+            producto['cantidad'] -= 1
+            producto['acumulado'] -= producto['precio']
+            print(request.session['carrito'])
+
+            # Eliminar el producto del carrito si la cantidad llega a 0
+            if producto['cantidad'] == 0:
+                del request.session['carrito'][str(id)]
+
+            # Guardar los cambios en el carrito
+            request.session.modified = True
+
+    # Redirigir al usuario a la página del carrito o a donde desees
+    return redirect('carrito')  # Reemplaza 'carrito' con la URL correcta

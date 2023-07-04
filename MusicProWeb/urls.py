@@ -22,6 +22,7 @@ urlpatterns = [
     path('agregar_producto/<int:producto_id>/', agregar_producto, name='agregar_producto'),
     path('pagar/', pagar, name='pagar'),
     path('agregar_btn/<int:id>/', btn_agregar_producto, name="Adds"),
+     path('restar/<int:id>/', btn_quitar_producto, name="Sub"),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
