@@ -178,11 +178,11 @@ def obtener_guitarras_solido(request):
 def obtener_guitarras(request):
     api_url = 'http://127.0.0.1:8000/api/productos/'
     response = requests.get(api_url)
-    print(response)
+
     try:
         data = response.json()
         productos = data.get('productos', [])
-        print(data)
+    
     except JSONDecodeError:
         productos = []
     
@@ -194,7 +194,7 @@ def carrito(request):
     carrito = Carrito(request)
     productos = carrito.get_productos()  # Obtener los productos del carrito
     total = total_carrito(request)
-    print(productos)
+ 
     return render(request, 'carro/carrito.html', {'productos': productos, 'total_carrito': total['total_carrito']})
 
 
@@ -262,3 +262,46 @@ def pagar(request):
 
     # Redirigir al cliente a la URL de redirección de Transbank
     return redirect(redirect_url)
+
+def btn_agregar_producto(request, id):
+    # Hacer una solicitud a la API para obtener los detalles del producto
+    if id is not None:
+        api_url = f"http://127.0.0.1:8000/api/productos/{id}/"
+        response = requests.get(api_url)
+
+        # Verificar si la solicitud fue exitosa
+        if response.status_code == 200:
+            producto = response.json()
+
+            # Inicializar el diccionario 'carrito' si no existe
+            if 'carrito' not in request.session:
+                request.session['carrito'] = {}
+
+            # Verificar si el producto ya está en el carrito
+            if str(id) in request.session['carrito']:
+                # Si el producto ya está en el carrito, incrementa la cantidad
+                request.session['carrito'][str(id)]['cantidad'] += 1
+                request.session['carrito'][str(id)]['acumulado'] += producto['producto']['precio']
+                print(request.session['carrito'])
+            else:
+                # Si el producto no está en el carrito, agrégalo con una cantidad de 1
+                nombre = producto['nombre']
+                precio = producto['precio']
+                imagen = producto['imagen']
+
+                request.session['carrito'][str(id)] = {
+                    'id': id,
+                    'nombre': nombre,
+                    'cantidad': 1,
+                    'acumulado': precio,
+                    'imagen': imagen,
+                }
+
+            # Guarda los cambios en el carrito
+            request.session.modified = True
+
+            # Redirige al usuario a la página del carrito o a donde desees
+            return redirect('carrito')  # Reemplaza 'carrito' con la URL correcta
+        else:
+            # Si la solicitud a la API falla, muestra un mensaje de error o redirige a una página de error
+            return redirect('error')  # Reemplaza 'error' con la URL correcta para la página de error

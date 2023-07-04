@@ -155,9 +155,11 @@
                         <td>${{ value.precio }}</td>
                         <td>${{value.acumulado}}</td> 
                         <td>{{value.cantidad}} 
-                           {% comment %}  <a href="{% url 'Adds' value.producto_id %}" class="badge btn btn-dark badge-dark">+</a>
-                            <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-dark badge-dark" {% if value.cantidad <= 1 %} disabled {% endif%}>-</a>
-                        </td> {% endcomment %}
+                    
+                            <a href="{% url 'Adds' value.id %}" class="badge btn btn-dark badge-dark">+</a>
+
+   {% comment %}  <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-dark badge-dark" {% if value.cantidad <= 1 %} disabled {% endif%}>-</a> {% endcomment %}
+                        </td>
                     </tr>
                 {% endfor %}
                 {% else %}

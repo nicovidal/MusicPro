@@ -14,6 +14,7 @@ class Carrito:
         id = str(producto_data['producto']['id'])
         if id not in self.carrito.keys():
             self.carrito[id] = {
+                "id":producto_data['producto']['id'],
                 "serie_del_producto": producto_data['producto']['serie_del_producto'],
                 "nombre": producto_data['producto']['nombre'],
                 "stock": producto_data['producto']['stock'],
