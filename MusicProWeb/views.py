@@ -16,6 +16,11 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.shortcuts import redirect
+from transbank.webpay.webpay_plus.transaction import Transaction
+
+
+
+
 
 
 # Create your views here.
@@ -217,3 +222,43 @@ def total_carrito(request):
         for key, value in request.session["carrito"].items():
             total += int(value["acumulado"])
     return {"total_carrito": total}
+
+
+
+
+def pagar(request):
+    # Obtén los datos necesarios para crear la transacción
+    # Puedes obtenerlos de tu modelo de carrito de compras o de cualquier otra fuente de datos
+
+    # Obtén el monto total del carrito de compras
+    monto_total = total_carrito(request)["total_carrito"]
+
+    # Configuración de las credenciales de Webpay
+    commerce_code = "597055555532"
+    api_key = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
+    integration_type = "TEST"  # Puedes utilizar "LIVE" para producción
+
+    # Crear una nueva instancia de la transacción
+    transaction = Transaction()
+    transaction.commerce_code = commerce_code
+    transaction.api_key = api_key
+    transaction.integration_type = integration_type
+
+    # Establecer los datos de la transacción
+    transaction.buy_order = "orden_de_compra"
+    transaction.session_id = "identificador_de_sesion"
+    transaction.amount = monto_total 
+    transaction.return_url = " https://webpay3gint.transbank.cl"
+
+    # Crear la transacción
+    response = transaction.create(
+        transaction.buy_order,
+        transaction.session_id,
+        transaction.amount,
+        transaction.return_url
+    )
+
+    redirect_url = response["url"]
+
+    # Redirigir al cliente a la URL de redirección de Transbank
+    return redirect(redirect_url)
