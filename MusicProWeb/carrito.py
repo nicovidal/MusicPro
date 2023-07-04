@@ -8,21 +8,23 @@ class Carrito:
         else:
             self.carrito=carrito
 
-    def agregar(self,producto):
-        id=str(producto.idProducto)
+    def agregar(self, producto_data):
+        id = str(producto_data['producto']['id'])
         if id not in self.carrito.keys():
-            self.carrito[id]={
-                "Serie_del_producto":producto.serie_del_producto,
-                "nombre":producto.nombre,
-                "stock":producto.stock,
-                "acumulado":producto.precio,
-                "cantidad":1,
-            }
+            self.carrito[id] = {
+                "Serie_del_producto": producto_data['producto']['serie_del_producto'],
+                "nombre": producto_data['producto']['nombre'],
+                "stock": producto_data['producto']['stock'],
+                "acumulado": producto_data['producto']['precio'],
+                "cantidad": 1,
+        }
         else:
-            self.carrito[id]["cantidad"]+=1
-            self.carrito[id]["acumulado"] += producto.precio
-            self.carrito[id]["stock"]-=1          
+            self.carrito[id]["cantidad"] += 1
+            self.carrito[id]["acumulado"] += producto_data['producto']['precio']
+            self.carrito[id]["stock"] -= 1
         self.guardar_carrito()
+
+
 
 
     def guardar_carrito(self):

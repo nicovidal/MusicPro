@@ -182,17 +182,21 @@ def carrito(request):
     productos = carrito.get_productos()  # Obtener los productos del carrito
     return render(request, 'carro/carrito.html', {'productos': productos})
 
+
+
+from django.http import HttpResponse
+
 def agregar_producto(request, producto_id):
     try:
         response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
         response.raise_for_status()  # Verificar si la solicitud fue exitosa
-        producto = response.json()
-        print(response)
-        # Resto de la lógica para agregar el producto al carrito
+        producto_data = response.json()
+        
         carrito = Carrito(request)
-        carrito.agregar(producto)
+        carrito.agregar(producto_data)
         messages.success(request, 'Agregado al Carrito')
+        
+        return HttpResponse("Producto agregado al carrito")  # Devolver una respuesta exitosa
     except (requests.exceptions.RequestException, ValueError):
         return HttpResponseServerError("Error al agregar el producto al carrito")
-
 
