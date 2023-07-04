@@ -127,28 +127,29 @@
     <!-- navbar-->
 
 
-    <h1>Guitarras </h1>
+    <h1>Guitarras</h1>
     <div class="row">
         {% for producto in productos %}
-          
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ producto.imagen }}"  class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 400px; height: auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ producto.nombre }}</h5>
-                            <p class="card-text">Precio: {{ producto.precio }}</p>
-                            <p class="card-text">Modelo: {{ producto.modelo }}</p>
-                            <p class="card-text">Marca: {{ producto.marca }}</p>
-                            <p class="card-text">Código: {{ producto.codigo }}</p>
-                            <p class="card-text">Stock: {{ producto.stock }}</p>
-                            <button class="btn btn-primary">Agregar al carro</button>
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 400px; height: auto;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">Precio: {{ producto.precio }}</p>
+                        <p class="card-text">Modelo: {{ producto.modelo }}</p>
+                        <p class="card-text">Marca: {{ producto.marca }}</p>
+                        <p class="card-text">Código: {{ producto.codigo }}</p>
+                        <p class="card-text">Stock: {{ producto.stock }}</p>
+                        <form method="post" action="{% url 'agregar_producto' producto.id %}">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-primary" value="Agregar al Carrito">
+                        </form>
                     </div>
                 </div>
-      
+            </div>
         {% endfor %}
     </div>
-
+    
     
     <div class="wrapper">
         <div class="content">

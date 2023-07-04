@@ -4,6 +4,10 @@ from .models import CustomUser
 from .forms import *
 from django.contrib.auth.forms import AuthenticationForm
 import requests
+from django.contrib import messages
+from django.http import HttpResponseServerError
+from MusicProWeb.carrito import Carrito
+from requests.exceptions import JSONDecodeError
 
 
 # Create your views here.
@@ -157,17 +161,38 @@ def obtener_guitarras_solido(request):
     data = response.json() 
     productos = data['productos']
     return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarrasCuerpoSolido.html', {'productos': productos})
-def obtener_guitarras(request):
-    api_url = 'http://127.0.0.1:8000/api/productos/'  
-    response = requests.get(api_url)  
-    data = response.json() 
-    productos = data['productos']
-    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarras.html', {'productos': productos})
 
+def obtener_guitarras(request):
+    api_url = 'http://127.0.0.1:8000/api/productos/'
+    response = requests.get(api_url)
+    print(response)
+    try:
+        data = response.json()
+        productos = data.get('productos', [])
+        print(data)
+    except JSONDecodeError:
+        productos = []
+    
+    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarras.html', {'productos': productos})
 
 
 """Carrito"""
 def carrito(request):
-    return render(request, 'carro/carrito.html')
+    carrito = Carrito(request)
+    productos = carrito.get_productos()  # Obtener los productos del carrito
+    return render(request, 'carro/carrito.html', {'productos': productos})
+
+def agregar_producto(request, producto_id):
+    try:
+        response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
+        response.raise_for_status()  # Verificar si la solicitud fue exitosa
+        producto = response.json()
+        print(response)
+        # Resto de la lógica para agregar el producto al carrito
+        carrito = Carrito(request)
+        carrito.agregar(producto)
+        messages.success(request, 'Agregado al Carrito')
+    except (requests.exceptions.RequestException, ValueError):
+        return HttpResponseServerError("Error al agregar el producto al carrito")
 
 
