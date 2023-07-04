@@ -138,8 +138,11 @@
                     </tr>
                     
                     <tr>
+                      
+                        <th scope="col">Imagen</th>
                         <th scope="col">NOMBRE</th>
                         <th scope="col">PRECIO</th>
+                        <th scope="col">Total producto</th>
                         <th scope="col">CANTIDAD</th>
                     </tr>
                 <thead>
@@ -147,11 +150,11 @@
                 {% if request.session.carrito.items %}
                 {% for key, value in request.session.carrito.items %}
                     <tr>
-                   {% comment %}      <td>{{value.imagen}}</td> {% endcomment %}
+                        <td><img src="{{ value.imagen }}" class="card-img-top img-fluid" alt="{{ value.nombre }}" style="width: 100px; height: auto;"></td>
                         <td>{{ value.nombre }}</td>
-                        <td>{{ value }}</td>
-               {% comment %}          <td>{{value.acumulado}}</td> {% endcomment %}
-                    {% comment %}     <td>{{value.cantidad}} {% endcomment %}
+                        <td>${{ value.precio }}</td>
+                        <td>${{value.acumulado}}</td> 
+                        <td>{{value.cantidad}} 
                            {% comment %}  <a href="{% url 'Adds' value.producto_id %}" class="badge btn btn-dark badge-dark">+</a>
                             <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-dark badge-dark" {% if value.cantidad <= 1 %} disabled {% endif%}>-</a>
                         </td> {% endcomment %}
@@ -186,7 +189,7 @@
                 </tr>
                 {% if messages %}
                     {% for message in messages %}
-                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }} Numero de orden: {{request.session.nmr_orden}}</div>
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }} </div>
                     {% endfor %}
                 {% endif %}   
             </form>   

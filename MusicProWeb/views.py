@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .models import CustomUser 
+from .models import *
 from .forms import *
 from django.contrib.auth.forms import AuthenticationForm
 import requests
@@ -9,6 +9,14 @@ from django.http import HttpResponseServerError
 from MusicProWeb.carrito import Carrito
 from requests.exceptions import JSONDecodeError
 from django.http import HttpResponse
+import datetime
+import random
+from django.contrib.auth.models import AbstractUser
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.shortcuts import redirect
+
 
 # Create your views here.
 
@@ -180,14 +188,15 @@ def obtener_guitarras(request):
 def carrito(request):
     carrito = Carrito(request)
     productos = carrito.get_productos()  # Obtener los productos del carrito
+    total = total_carrito(request)
     print(productos)
-    return render(request, 'carro/carrito.html', {'productos': productos})
+    return render(request, 'carro/carrito.html', {'productos': productos, 'total_carrito': total['total_carrito']})
+
 
 
 
 
 def agregar_producto(request, producto_id):
- 
     try:
         response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
         response.raise_for_status()  # Verificar si la solicitud fue exitosa
@@ -195,9 +204,16 @@ def agregar_producto(request, producto_id):
         
         carrito = Carrito(request)
         carrito.agregar(producto_data)
-        messages.success(request, 'Agregado al Carrito')
         
-        return HttpResponse("Producto agregado al carrito")  # Devolver una respuesta exitosa
+        messages.success(request, 'Producto agregado correctamente')  # Agregar el mensaje de éxito
+        return redirect(reverse('carrito'))  # Redirigir al carrito de compras
     except (requests.exceptions.RequestException, ValueError):
-        return HttpResponseServerError("Error al agregar el producto al carrito")
+        messages.error(request, 'Error al agregar el producto al carrito')  # Agregar el mensaje de error
+        return HttpResponseServerError("Error al agregar el producto al carrito")  # Redirigir a una página de error
 
+def total_carrito(request):
+    total = 0
+    if "carrito" in request.session.keys():
+        for key, value in request.session["carrito"].items():
+            total += int(value["acumulado"])
+    return {"total_carrito": total}

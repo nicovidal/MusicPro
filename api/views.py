@@ -14,7 +14,8 @@ class ProductoView(View):
                 'nombre':producto.nombre,
                 'marca': producto.marca,
                 'stock':producto.stock,
-                'precio':producto.precio
+                'precio':producto.precio,
+                'imagen': producto.imagen.url if producto.imagen else None,
                 # Agrega los demás campos del producto que deseas mostrar
             }}
         else:

@@ -7,7 +7,7 @@ class Producto(models.Model):
     marca=models.CharField(max_length=50,null=True)
     codigo=models.CharField(max_length=50,null=True)
     nombre=models.CharField(max_length=50,null=True)
-    precio=models.CharField(max_length=50,null=True)
+    precio=models.IntegerField(null=True)
     modelo=models.CharField(max_length=50,null=True)
     oferta=models.BooleanField(null=True)
     nuevo=models.BooleanField(null=True)

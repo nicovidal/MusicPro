@@ -14,16 +14,19 @@ class Carrito:
         id = str(producto_data['producto']['id'])
         if id not in self.carrito.keys():
             self.carrito[id] = {
-                "serie_del_producto": producto_data['producto'].get('serie_del_producto'),
-                "nombre": producto_data['producto'].get('nombre'),
-                "stock": producto_data['producto'].get('stock'),
-                "precio": producto_data['producto'].get('precio'),
+                "serie_del_producto": producto_data['producto']['serie_del_producto'],
+                "nombre": producto_data['producto']['nombre'],
+                "stock": producto_data['producto']['stock'],
+                "precio": producto_data['producto']['precio'],
                 "cantidad": 1,
+                "imagen": producto_data['producto'].get('imagen'),
+                "acumulado": producto_data['producto']['precio'],
             }
         else:
             self.carrito[id]["cantidad"] += 1
-            self.carrito[id]["acumulado"] += producto_data['producto'].get('precio')
+            self.carrito[id]["acumulado"] += producto_data['producto']['precio']
             self.carrito[id]["stock"] -= 1
+        self.actualizar_total()  # Actualizar el total a pagar
         self.guardar_carrito()
 
     def get_productos(self):
@@ -51,6 +54,7 @@ class Carrito:
         id = str(producto.id)
         if id in self.carrito:
             del self.carrito[id]
+            self.actualizar_total()  # Actualizar el total a pagar
             self.guardar_carrito()
 
     def restar(self, producto):
@@ -60,8 +64,17 @@ class Carrito:
             self.carrito[id]["acumulado"] -= producto.precio
             if self.carrito[id]["cantidad"] <= 0:
                 del self.carrito[id]
+            self.actualizar_total()  # Actualizar el total a pagar
             self.guardar_carrito()
 
     def limpiar(self):
         self.session["carrito"] = {}
+        self.actualizar_total()  # Actualizar el total a pagar
         self.session.modified = True
+
+    def actualizar_total(self):
+        total = 0
+        for item in self.carrito.values():
+            total += int(item['acumulado'])
+
+        self.session['total_pagar'] = total
