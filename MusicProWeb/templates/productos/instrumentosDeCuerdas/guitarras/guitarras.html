@@ -130,16 +130,14 @@
     <h1>Guitarras</h1>
     <div class="row">
         {% for producto in productos %}
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 400px; height: auto;">
+            <div class="col-2" style="margin-left:20px">
+                <div class="card" style="width:200px">
+                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
                     <div class="card-body">
                         <h5 class="card-title">{{ producto.nombre }}</h5>
-                        <p class="card-text">Precio: {{ producto.precio }}</p>
+                        <p class="card-text">Precio: ${{ producto.precio }}</p>
                         <p class="card-text">Modelo: {{ producto.modelo }}</p>
-                        <p class="card-text">Marca: {{ producto.marca }}</p>
-                        <p class="card-text">Código: {{ producto.codigo }}</p>
-                        <p class="card-text">Stock: {{ producto.stock }}</p>
+                        <p class="card-text">Marca: {{ producto.marca }}</p>    
                         <form method="post" action="{% url 'agregar_producto' producto.id %}">
                             {% csrf_token %}
                             <input type="submit" class="btn btn-primary" value="Agregar al Carrito">
@@ -150,20 +148,16 @@
         {% endfor %}
     </div>
     
-    
-    <div class="wrapper">
-        <div class="content">
-            <!-- Contenido principal de la página -->
-        </div>
-    
-        <footer class="bg-light text-center text-black">
-            <div class="text-center p-3">
-                Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
-                &copy; 2023 - Integración de plataforma
-            </div>
-        </footer>
-    </div>
 
+  
+    <footer class="bg-light text-center text-black">
+        <div class="container">
+          <div class="p-3">
+            Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
+            &copy; 2023 - Integración de plataforma
+          </div>
+        </div>
+      </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

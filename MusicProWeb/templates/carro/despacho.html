@@ -31,7 +31,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                         <li class="">
-                            <a class="dropdown-item " href="#">Guitarra</a>
+                            <a class="dropdown-item " href="/guitarras">Guitarra</a>
                             <ul class="">
                                 <li><a class="dropdown-item" href="/solido">Guitarra cuerpo sólido</a></li>
                                 <li><a class="dropdown-item" href="/acusticas">Guitarra Acústicas</a></li>
@@ -68,7 +68,7 @@
                                 <li><a class="dropdown-item" href="#">Roland</a></li>
                                 <li><a class="dropdown-item" href="#">Alesis</a></li>
                           
-                            </ul> 
+                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -127,39 +127,94 @@
     <!-- navbar-->
 
 
-    
-    <h1>Bajos</h1>
-    <div class="row">
-        {% for producto in productos %}
-            {% if producto.modelo == 'Acustica' %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ producto.imagen }}"  class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 400px; height: auto;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ producto.nombre }}</h5>
-                            <p class="card-text">Precio: {{ producto.precio }}</p>
-                            <p class="card-text">Modelo: {{ producto.modelo }}</p>
-                            <p class="card-text">Marca: {{ producto.marca }}</p>
-                            <p class="card-text">Código: {{ producto.codigo }}</p>
-                            <p class="card-text">Stock: {{ producto.stock }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+
+    <div>
+        
+        <h1>Despacho</h1>
+
+
+
+
     </div>
+
+
+    <div class="">
+        <div class="alert alert-primary" role="alert">
+        <table class="table table-bordered">
+            <form  action="/pagar/" method="POST">
+                {% csrf_token %}
+                <thead>
+                    <tr>
+                        <th scope="row" colspan="3" class="text-center">Carrito</th>
+                    </tr>
+                    
+                    <tr>
+                      
+                        <th scope="col">Imagen</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">Total producto</th>
+                        <th scope="col">CANTIDAD</th>
+                    </tr>
+                <thead>
+                <tbody>
+                {% if request.session.carrito.items %}
+                {% for key, value in request.session.carrito.items %}
+                    <tr>
+                        <td><img src="{{ value.imagen }}" class="card-img-top img-fluid" alt="{{ value.nombre }}" style="width: 100px; height: auto;"></td>
+                        <td>${{value.acumulado}}</td>
+                        
+                    </tr>
+                {% endfor %}
+                {% else %}
+
+                {% endif %}
+                    <tr>
+                     
+                        <th scope="row">Total:</th>
+                        <td colspan="2" id="total_carrito" name="total_carrito">$ {{total_carrito}}</td>
+                    </tr>
+                </tbody>
+  
+            </form>   
+        </table>
     
-
-   
-    <footer class="bg-light text-center text-black">
-        <div class="container">
-          <div class="p-3">
-            Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
-            &copy; 2023 - Integración de plataforma
-          </div>
         </div>
-      </footer>
 
+        <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="modalCompraLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalCompraLabel">Selecciona una opción</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>¿Cómo deseas continuar?</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
+                  <a {% comment %} href="{% url 'comprar_como_invitado' %}"  {% endcomment %}class="btn btn-secondary">Continuar como invitado</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        
+
+
+    
+    
+  
+          <footer class="bg-light text-center text-black">
+            <div class="container">
+              <div class="p-3">
+                Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
+                &copy; 2023 - Integración de plataforma
+              </div>
+            </div>
+          </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

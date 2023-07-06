@@ -42,6 +42,11 @@ def homeAdministrador(request):
 
 
 
+def despacho(request):
+    return render(request,'carro/despacho.html')
+
+
+
 class EmailAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
