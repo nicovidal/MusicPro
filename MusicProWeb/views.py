@@ -41,10 +41,6 @@ def homeAdministrador(request):
     return render (request,'administrador/home.html')
 
 
-
-
-
-
 class EmailAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -145,51 +141,11 @@ def create_cliente(request):
 
     return render(request, 'auth/create_cliente.html', {'form': form, 'error_message': error_message})
 
-""" !-consumo de api """
-
-def obtener_productos(request):
-    api_url = 'http://127.0.0.1:8000/api/productos/' 
-    response = requests.get(api_url) 
-    data = response.json()  
-    productos = data['productos'] 
-    return render(request, 'index.html', {'productos': productos})
 
 
-def obtener_guitarras_acusticas(request):
-    api_url = 'http://127.0.0.1:8000/api/productos/' 
-    
-    response = requests.get(api_url) 
-    data = response.json()  
-    productos = data['productos']  
-    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarrasAcusticas.html', {'productos': productos})
 
-def obtener_guitarras_electricas(request):
-    api_url = 'http://127.0.0.1:8000/api/productos/'  
-    
-    response = requests.get(api_url) 
-    data = response.json()  
-    productos = data['productos']  
-    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarrasElectricas.html', {'productos': productos})
 
-def obtener_guitarras_solido(request):
-    api_url = 'http://127.0.0.1:8000/api/productos/'  
-    response = requests.get(api_url)  
-    data = response.json() 
-    productos = data['productos']
-    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarrasCuerpoSolido.html', {'productos': productos})
 
-def obtener_guitarras(request):
-    api_url = 'http://127.0.0.1:8000/api/productos/'
-    response = requests.get(api_url)
-
-    try:
-        data = response.json()
-        productos = data.get('productos', [])
-    
-    except JSONDecodeError:
-        productos = []
-    
-    return render(request, 'productos/instrumentosDeCuerdas/guitarras/guitarras.html', {'productos': productos})
 
 
 """Carrito"""
