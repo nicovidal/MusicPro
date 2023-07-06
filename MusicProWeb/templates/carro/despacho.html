@@ -137,49 +137,134 @@
 
     </div>
 
+    
 
-    <div class="">
-        <div class="alert alert-primary" role="alert">
-        <table class="table table-bordered">
-            <form  action="/pagar/" method="POST">
+
+    <div class="row">
+        <div class="col-md-8">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <h3>Despacho a domicilio</h3>
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#accordionPanelsStayOpenExample">
+                    <div class="accordion-body">
+                        <form class="row g-3">
+                            <div class="col-md-6">
+                              <label for="inputNombre" class="form-label">Nombre</label>
+                              <input type="text" class="form-control" id="inputNombre">
+                            </div>
+                            <div class="col-md-6">
+                              <label for="inputApellidos" class="form-label">Apellidos</label>
+                              <input type="text" class="form-control" id="inputApellidos">
+                            </div>
+                            <div class="col-12">
+                              <label for="inputAddress" class="form-label">Direccion</label>
+                              <input type="text" class="form-control" id="inputAddress" placeholder="Conquistador 1232">
+                            </div>
+                            <div class="col-12">
+                              <label for="inputAddress2" class="form-label">Direccion Opcional</label>
+                              <input type="text" class="form-control" id="inputAddress2" placeholder="Departemento, piso , etc">
+                            </div>
+                            <div class="col-md-6">
+                              <label for="inputCity" class="form-label">Ciudad</label>
+                              <input type="text" class="form-control" id="inputCity">
+                            </div>
+                            <div class="col-md-4">
+                              <label for="inputState" class="form-label">Region</label>
+                              <select id="inputState" class="form-select">
+                                <option selected>Elegir</option>
+                                <option value="Aysen">Aysen</option>
+                                <option value="Antofagasta">Antofagasta</option>
+                                <option value="Araucania">Araucania</option>
+                                <option value="Atacama">Atacama</option>
+                                <option value="Bio-Bio">Bio-Bio</option>
+                                <option value="Coquimbo">Coquimbo</option>
+                                <option value="O'Higgins">O'Higgins</option>
+                                <option value="Los Lagos">Los Lagos</option>
+                                <option value="Magallanes y la Antartica Chilena">Magallanes y la Antartica Chilena</option>
+                                <option value="Maule">Maule</option>
+                                <option value="Santiago Region Metropolitana">Santiago Region Metropolitana</option>
+                                <option value="Tarapaca">Tarapaca</option>
+                                <option value="Valparaiso">Valparaiso</option>
+                              </select>
+                            </div>
+                            <div class="col-md-2">
+                              <label for="inputZip" class="form-label">Codigo Postal</label>
+                              <input type="text" class="form-control" id="inputZip">
+                            </div>
+                            <div class="col-12">
+                              <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                          </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        <h3>Retiro en tienda</h3>
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo" data-bs-parent="#accordionPanelsStayOpenExample">
+                    <div class="accordion-body">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccione la tienda de retiro</option>
+                            <option value="1">Santiago</option>
+                            <option value="2">Maipú</option>
+                            <option value="3">San Miguel</option>
+                          </select>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="alert alert-primary" role="alert">
+            <table class="table table-bordered">
+              <form action="/pagar/" method="POST">
                 {% csrf_token %}
                 <thead>
-                    <tr>
-                        <th scope="row" colspan="3" class="text-center">Carrito</th>
-                    </tr>
-                    
-                    <tr>
-                      
-                        <th scope="col">Imagen</th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">PRECIO</th>
-                        <th scope="col">Total producto</th>
-                        <th scope="col">CANTIDAD</th>
-                    </tr>
-                <thead>
+                  <tr>
+                    <th scope="row" colspan="3" class="text-center">Carrito</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Total producto</th>
+                  </tr>
+                </thead>
                 <tbody>
-                {% if request.session.carrito.items %}
-                {% for key, value in request.session.carrito.items %}
-                    <tr>
-                        <td><img src="{{ value.imagen }}" class="card-img-top img-fluid" alt="{{ value.nombre }}" style="width: 100px; height: auto;"></td>
-                        <td>${{value.acumulado}}</td>
-                        
-                    </tr>
-                {% endfor %}
-                {% else %}
-
-                {% endif %}
-                    <tr>
-                     
-                        <th scope="row">Total:</th>
-                        <td colspan="2" id="total_carrito" name="total_carrito">$ {{total_carrito}}</td>
-                    </tr>
+                  {% if request.session.carrito.items %}
+                  {% for key, value in request.session.carrito.items %}
+                  <tr>
+                    <td>
+                      <img src="{{ value.imagen }}" class="card-img-top img-fluid" alt="{{ value.nombre }}" style="width: 100px; height: auto;">
+                    </td>
+                    <td>${{value.acumulado}}</td>
+                  </tr>
+                  {% endfor %}
+                  {% else %}
+                  {% endif %}
+                  <tr>
+                    <th scope="row">Total: $</th>
+                    <td colspan="2" id="total_carrito" name="total_carrito">$ {{total_carrito}}</td>
+                  </tr>
+                  <tr>
+                    <td><button type="submit" {% if total_carrito <= 0 %} disabled {% endif%} class="btn btn-primary btn-lg">Pagar</button></td>
+                  </tr>
+                  
+        
                 </tbody>
-  
-            </form>   
-        </table>
-    
+              
+              </form>
+         
+            </table>
+            
+          </div>
         </div>
+      </div>
 
         <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="modalCompraLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -207,7 +292,7 @@
     
     
   
-          <footer class="bg-light text-center text-black">
+          <footer class="bg-light text-center text-black fixed-bottom" >
             <div class="container">
               <div class="p-3">
                 Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>

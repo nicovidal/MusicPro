@@ -42,8 +42,6 @@ def homeAdministrador(request):
 
 
 
-def despacho(request):
-    return render(request,'carro/despacho.html')
 
 
 
@@ -202,6 +200,12 @@ def carrito(request):
  
     return render(request, 'carro/carrito.html', {'productos': productos, 'total_carrito': total['total_carrito']})
 
+def despacho(request):
+    carrito = Carrito(request)
+    productos = carrito.get_productos()  # Obtener los productos del carrito
+    total = total_carrito(request)
+ 
+    return render(request, 'carro/despacho.html', {'productos': productos, 'total_carrito': total['total_carrito']})
 
 
 
