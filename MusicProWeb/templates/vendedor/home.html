@@ -16,149 +16,173 @@
     <title>MusicPro</title>
 </head>
 <body>
-    <h1>MusicPro</h1>
-      <!-- navbar-->
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Categorías</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <h1 class="text-center">MusicPro</h1>
+             <!-- navbar-->
+             <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">Categorías</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Instrumentos de Cuerdas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                <li class="">
+                                    <a class="dropdown-item " href="/guitarras">Guitarra</a>
+                                    <ul class="">
+                                        <li><a class="dropdown-item" href="/solido">Guitarra cuerpo sólido</a></li>
+                                        <li><a class="dropdown-item" href="/acusticas">Guitarra Acústicas</a></li>
+                                        <li><a class="dropdown-item" href="/electricas">Guitarra Eléctricas</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="dropdown-item" href="/bajos">Bajos</a></li>
+                                <ul class="">
+                                    <li><a class="dropdown-item" href="/bajoCuatro">Bajos Cuatro Cuerdas</a></li>
+                                    <li><a class="dropdown-item" href="/bajoCinco">Bajos Cinco Cuerdas</a></li>
+                                    <li><a class="dropdown-item" href="/bajoActivo">Bajos Activos</a></li>
+                                    <li><a class="dropdown-item" href="/bajoPasivo">Bajos Pasivos</a></li>
+                                </ul>
+                                <li><a class="dropdown-item" href="/pianos">Pianos</a></li>
+                                <ul class="">
+                                    <li><a class="dropdown-item" href="/pianoEntera">Piano Cola Entera</a></li>
+                                    <li><a class="dropdown-item" href="/pianoMedia">Piano Media Cola</a></li>
+                                    <li><a class="dropdown-item" href="/pianolas">pianolas</a></li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Percusión
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/bateriaA">Baterías Acústicas</a>
+                                    <ul class="">
+                                        <li><a class="dropdown-item" href="/tamaA">Tama</a></li>
+                                        <li><a class="dropdown-item" href="/pearlA">Pearl</a></li>
+                                        <li><a class="dropdown-item" href="/sonorA">Sonor</a></li>
+                                        <li><a class="dropdown-item" href="/mapexA">Mapex</a></li>
+                                    </ul>
+                                </li>
+                                
+                                <li>
+                                    <a class="dropdown-item" href="/bateriaE">Baterías Electricas</a>
+                                    <ul class="">
+                                        <li><a class="dropdown-item" href="/rolandE">Roland</a></li>
+                                        <li><a class="dropdown-item" href="/alesisE">Alesis</a></li>
+                                  
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Amplicifadores
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/cabezales">Cabezales</a>
+                                    <ul class="">
+                                        <li><a class="dropdown-item" href="/cabezalEngl">ENGL</a></li>
+                                        <li><a class="dropdown-item" href="/cabezalMarshall">Marshall</a></li>
+                                        <li><a class="dropdown-item" href="/cabezalPavey">Pavey</a></li>
+                                        <li><a class="dropdown-item" href="/cabezalEvh">EVH</a></li>
+                                    </ul>
+                                
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/cajas">Cajas</a>
+                                    <ul class="">
+                                        <li><a class="dropdown-item" href="/cajasEngl">ENGL</a></li>
+                                        <li><a class="dropdown-item" href="/cajasMarshall">Marshall</a></li>
+                                        <li><a class="dropdown-item" href="/cajasPavey">Pavey</a></li>
+                                        <li><a class="dropdown-item" href="/cajasEvh">EVH</a></li>
+                                    </ul>
+                                
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"  id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Accesorios Varios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                <li><a class="dropdown-item" href="/audifonos">Audífonos</a></li>
+                                <li><a class="dropdown-item" href="/monitores">Monitores</a></li>
+                                <li><a class="dropdown-item" href="/parlantes">Parlantes</a></li>
+                                <li><a class="dropdown-item" href="/cables">Cables</a></li>
+                                <li><a class="dropdown-item" href="/microfonos">Micrófonos</a></li>
+                                <li><a class="dropdown-item" href="/interfaces">Interfaces</a></li>
+                                <li><a class="dropdown-item" href="/mixers">Mixers</a></li>
+                                <li><a class="dropdown-item" href="/accesoriosGeneral">Todos los Accesorios</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav class="navbar navbar-light border">
+                <div class="container-fluid">
+                    {% if user.is_authenticated %}
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                  
+                    {% else %}
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="btn btn-primary ms-auto" href="/login/">Login</a>
+                    {% endif %}
+    
+                </div>
+            </nav>
+
+        <h1 class="text-center">Vendedor:{{  user.first_name }}</h1>
+        <h1>Pedidos:</h1>
+        <button>aceptar</button>
+        <button>rechazar</button>
+        <h1 class="text-center">Productos en bodega</h1>
+        
+        <form method="GET" action="">
+            <div class="mb-3">
+            <label for="nombreProducto" class="form-label">Filtrar por nombre:</label>
+            <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Ingrese el nombre del producto">
+            </div>
+  
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a href="?">
+            <button type="button" class="btn btn-secondary">Restablecer</button>
+            </a>
+
+        </form>
+
+        <div class="row">
+        {% for producto in productos %}
+        <div class="col-2" style="margin-left:20px ">
+        <div class="card" style="width:200px; margin-top:20px; margin-bottom:20px">
+            <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
+            <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="card-text">Precio: ${{ producto.precio }}</p>
+                <p class="card-text">Modelo: {{ producto.modelo }}</p>
+                <p class="card-text">Marca: {{ producto.marca }}</p> 
+                 <p class="card-text">Stock en bodega: {{ producto.stock_bodega }}</p>
+                 <form method="post" action="{% url 'agregar_producto_pedido' producto.id %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="Agregar a pedido">
+                </form> 
+            </div>
+            </div>
         </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Instrumentos de Cuerdas
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                        <li class="">
-                            <a class="dropdown-item " href="/guitarras">Guitarra</a>
-                            <ul class="">
-                                <li><a class="dropdown-item" href="/solido">Guitarra cuerpo sólido</a></li>
-                                <li><a class="dropdown-item" href="/acusticas">Guitarra Acústicas</a></li>
-                                <li><a class="dropdown-item" href="/electricas">Guitarra Eléctricas</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="dropdown-item" href="/bajos">Bajos</a></li>
-                        <ul class="">
-                            <li><a class="dropdown-item" href="/bajoCuatro">Bajos Cuatro Cuerdas</a></li>
-                            <li><a class="dropdown-item" href="/bajoCinco">Bajos Cinco Cuerdas</a></li>
-                            <li><a class="dropdown-item" href="/bajoActivo">Bajos Activos</a></li>
-                            <li><a class="dropdown-item" href="/bajoPasivo">Bajos Pasivos</a></li>
-                        </ul>
-                        <li><a class="dropdown-item" href="/pianos">Pianos</a></li>
-                        <ul class="">
-                            <li><a class="dropdown-item" href="/pianoEntera">Piano Cola Entera</a></li>
-                            <li><a class="dropdown-item" href="/pianoMedia">Piano Media Cola</a></li>
-                            <li><a class="dropdown-item" href="/pianolas">pianolas</a></li>
-                        </ul>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Percusión
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                        <li>
-                            <a class="dropdown-item" href="/bateriaA">Baterías Acústicas</a>
-                            <ul class="">
-                                <li><a class="dropdown-item" href="/tamaA">Tama</a></li>
-                                <li><a class="dropdown-item" href="/pearlA">Pearl</a></li>
-                                <li><a class="dropdown-item" href="/sonorA">Sonor</a></li>
-                                <li><a class="dropdown-item" href="/mapexA">Mapex</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <a class="dropdown-item" href="/bateriaE">Baterías Electricas</a>
-                            <ul class="">
-                                <li><a class="dropdown-item" href="/rolandE">Roland</a></li>
-                                <li><a class="dropdown-item" href="/alesisE">Alesis</a></li>
-                          
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Amplicifadores
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                        <li>
-                            <a class="dropdown-item" href="/cabezales">Cabezales</a>
-                            <ul class="">
-                                <li><a class="dropdown-item" href="/cabezalEngl">ENGL</a></li>
-                                <li><a class="dropdown-item" href="/cabezalMarshall">Marshall</a></li>
-                                <li><a class="dropdown-item" href="/cabezalPavey">Pavey</a></li>
-                                <li><a class="dropdown-item" href="/cabezalEvh">EVH</a></li>
-                            </ul>
-                        
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="/cajas">Cajas</a>
-                            <ul class="">
-                                <li><a class="dropdown-item" href="/cajasEngl">ENGL</a></li>
-                                <li><a class="dropdown-item" href="/cajasMarshall">Marshall</a></li>
-                                <li><a class="dropdown-item" href="/cajasPavey">Pavey</a></li>
-                                <li><a class="dropdown-item" href="/cajasEvh">EVH</a></li>
-                            </ul>
-                        
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"  id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Accesorios Varios
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                        <li><a class="dropdown-item" href="/audifonos">Audífonos</a></li>
-                        <li><a class="dropdown-item" href="/monitores">Monitores</a></li>
-                        <li><a class="dropdown-item" href="/parlantes">Parlantes</a></li>
-                        <li><a class="dropdown-item" href="/cables">Cables</a></li>
-                        <li><a class="dropdown-item" href="/microfonos">Micrófonos</a></li>
-                        <li><a class="dropdown-item" href="/interfaces">Interfaces</a></li>
-                        <li><a class="dropdown-item" href="/mixers">Mixers</a></li>
-                        <li><a class="dropdown-item" href="/accesoriosGeneral">Todos los Accesorios</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+     {% endfor %}
     </div>
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="btn btn-primary ms-auto" href="/login/">Login</a>
-        </div>
-    </nav>
-    <!-- navbar-->
-
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="btn btn-primary ms-auto" href="/login/">Login</a>
-        </div>
-    </nav>
-    <!-- navbar-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1>soy vendedor xd</h1>
-
 
 
 
@@ -171,10 +195,7 @@
 
 
     
-
-
-
-<footer class="bg-light text-center text-black">
+<footer class="bg-light text-center text-black ">
     <div class="container">
       <div class="p-3">
         Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>

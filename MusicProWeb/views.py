@@ -29,7 +29,23 @@ def homeUsuario(request):
     return render(request,'cliente/home.html')
 
 def homeVendedor(request):
-    return render (request,'vendedor/home.html')
+    api_url = 'http://127.0.0.1:8000/api/productos/'
+    response = requests.get(api_url)
+
+    try:
+        data = response.json()
+        productos = data.get('productos', [])
+    
+    except JSONDecodeError:
+        productos = []
+    
+     # Obtener el valor del filtro del formulario
+    filtro_nombre = request.GET.get('nombreProducto')
+
+    # Aplicar el filtro por nombre si se proporciona    
+    if filtro_nombre:
+        productos = [producto for producto in productos if filtro_nombre.lower() in producto['nombre'].lower()]
+    return render (request,'vendedor/home.html',{'productos':productos})
 
 def homeContador(request):
     return render (request,'contador/home.html')
@@ -187,6 +203,21 @@ def despacho(request):
 
 
 def agregar_producto(request, producto_id):
+    try:
+        response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
+        response.raise_for_status()  # Verificar si la solicitud fue exitosa
+        producto_data = response.json()
+        
+        carrito = Carrito(request)
+        carrito.agregar(producto_data)
+        
+        messages.success(request, 'Producto agregado correctamente')  # Agregar el mensaje de éxito
+        return redirect(reverse('carrito'))  # Redirigir al carrito de compras
+    except (requests.exceptions.RequestException, ValueError):
+        messages.error(request, 'Error al agregar el producto al carrito')  # Agregar el mensaje de error
+        return HttpResponseServerError("Error al agregar el producto al carrito")  # Redirigir a una página de error
+    
+def agregar_producto_pedido(request, producto_id):
     try:
         response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
         response.raise_for_status()  # Verificar si la solicitud fue exitosa

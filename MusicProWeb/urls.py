@@ -11,7 +11,7 @@ urlpatterns = [
     path('create_cliente/', create_cliente, name="create_cliente"),
     path('cliente/', homeUsuario, name="home_cliente"),
     path('bodeguero', homeBodeguero, name="home_bodeguero"),
-    path('vendedor/', homeVendedor, name="home_vendedor"),
+    path('vendedor', homeVendedor, name="home_vendedor"),
     path('contador/', homeContador, name="home_contador"),
     path('administrador/', homeAdministrador, name="home_administrador"),
     path('pedidosBodega', pedidos, name="pedidos_bodega"),
@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('carrito/',carrito,name="carrito"),
     path('agregar_producto/<int:producto_id>/', agregar_producto, name='agregar_producto'),
+    path('agregar_producto_pedido/<int:producto_id>/', agregar_producto_pedido, name='agregar_producto_pedido'),
     path('pagar/', pagar, name='pagar'),
     path('agregar_btn/<int:id>/', btn_agregar_producto, name="Adds"),
     path('restar/<int:id>/', btn_quitar_producto, name="Sub"),
