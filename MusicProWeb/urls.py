@@ -14,6 +14,15 @@ urlpatterns = [
     path('contador/', homeContador, name="home_contador"),
     path('administrador/', homeAdministrador, name="home_administrador"),
     path('login/', login_view, name="login"),
+
+    path('carrito/',carrito,name="carrito"),
+    path('agregar_producto/<int:producto_id>/', agregar_producto, name='agregar_producto'),
+    path('pagar/', pagar, name='pagar'),
+    path('agregar_btn/<int:id>/', btn_agregar_producto, name="Adds"),
+    path('restar/<int:id>/', btn_quitar_producto, name="Sub"),
+    path('despacho/',despacho,name="despacho"),
+
+    #productos rutas
     path('', obtener_productos, name="home"),
     path('acusticas', obtener_guitarras_acusticas, name="home_acusticas"),
     path('electricas', obtener_guitarras_electricas, name="home_electricas"),
@@ -40,26 +49,23 @@ urlpatterns = [
     path('cajas',obtener_cajas,name="cajas_general"),
     path('cajaEngl',obtener_cajas_engl,name="cajaEngl"),
     path('cajaEvh',obtener_cajas_evh,name="cajaEvh"),
+    path('cajaPavey',obtener_cajas_pavey,name="cajaPavey"),
     path('cajaMarshall',obtener_cajas_marshall,name="cajaMarshall"),
     path('pianos',obtener_pianos,name="home_pianos"),
     path('pianoEntera',obtener_pianos_entera,name="piano_entera"),
     path('pianoMedia',obtener_pianos_media,name="piano_media"),
     path('pianolas',obtener_pianolas,name="pianolas"),
     path('bateriaA',obtener_baterias_acusticas,name="baterias_acusticas"),
-    path('mapexB',obtener_baterias_acusticas_mapex,name="baterias_acusticas_mapex"),
-    path('pearlB',obtener_baterias_acusticas_pearl,name="baterias_acusticas_pearl"),
-    path('sonorB',obtener_baterias_acusticas_sonor,name="baterias_acusticas_sonor"),
+    path('mapexA',obtener_baterias_acusticas_mapex,name="baterias_acusticas_mapex"),
+    path('pearlA',obtener_baterias_acusticas_pearl,name="baterias_acusticas_pearl"),
+    path('sonorA',obtener_baterias_acusticas_sonor,name="baterias_acusticas_sonor"),
     path('tamaB',obtener_baterias_acusticas_tama,name="baterias_acusticas_tama"),
     path('bateriaE',obtener_baterias_electricas,name="baterias_electricas"),
     path('alesisE',obtener_baterias_electrica_alesis,name="baterias_electricas_alesis"),
     path('rolandE',obtener_baterias_electrica_roland,name="baterias_electricas_roland"),
     path('cajaPavey',obtener_cajas_pavey,name="cajaPavey"),
-    path('carrito/',carrito,name="carrito"),
-    path('agregar_producto/<int:producto_id>/', agregar_producto, name='agregar_producto'),
-    path('pagar/', pagar, name='pagar'),
-    path('agregar_btn/<int:id>/', btn_agregar_producto, name="Adds"),
-    path('restar/<int:id>/', btn_quitar_producto, name="Sub"),
-    path('despacho/',despacho,name="despacho")
+
+    #productos fin
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

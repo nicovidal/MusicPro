@@ -18,7 +18,7 @@
 <body>
     <h1>MusicPro</h1>
       <!-- navbar-->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Categorías</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -33,17 +33,17 @@
                         <li class="">
                             <a class="dropdown-item " href="/guitarras">Guitarra</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="#">Guitarra cuerpo sólido</a></li>
+                                <li><a class="dropdown-item" href="/solido">Guitarra cuerpo sólido</a></li>
                                 <li><a class="dropdown-item" href="/acusticas">Guitarra Acústicas</a></li>
                                 <li><a class="dropdown-item" href="/electricas">Guitarra Eléctricas</a></li>
                             </ul>
                         </li>
-                        <li><a class="dropdown-item" href="#">Bajos</a></li>
+                        <li><a class="dropdown-item" href="/bajos">Bajos</a></li>
                         <ul class="">
-                            <li><a class="dropdown-item" href="#">Bajos Cuatro Cuerdas</a></li>
-                            <li><a class="dropdown-item" href="#">Bajos Cinco Cuerdas</a></li>
-                            <li><a class="dropdown-item" href="#">Bajos Activos</a></li>
-                            <li><a class="dropdown-item" href="#">Bajos Pasivos</a></li>
+                            <li><a class="dropdown-item" href="/bajoCuatro">Bajos Cuatro Cuerdas</a></li>
+                            <li><a class="dropdown-item" href="/bajoCinco">Bajos Cinco Cuerdas</a></li>
+                            <li><a class="dropdown-item" href="/bajoActivo">Bajos Activos</a></li>
+                            <li><a class="dropdown-item" href="/bajoPasivo">Bajos Pasivos</a></li>
                         </ul>
                     </ul>
                 </li>
@@ -53,22 +53,22 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                         <li>
-                            <a class="dropdown-item" href="#">Baterías Acústicas</a>
+                            <a class="dropdown-item" href="/bateriaA">Baterías Acústicas</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="#">Tama</a></li>
-                                <li><a class="dropdown-item" href="#">Pearl</a></li>
-                                <li><a class="dropdown-item" href="#">Sonor</a></li>
-                                <li><a class="dropdown-item" href="#">Mapex</a></li>
+                                <li><a class="dropdown-item" href="/tamaA">Tama</a></li>
+                                <li><a class="dropdown-item" href="/pearlA">Pearl</a></li>
+                                <li><a class="dropdown-item" href="/sonorA">Sonor</a></li>
+                                <li><a class="dropdown-item" href="/mapexA">Mapex</a></li>
                             </ul>
                         </li>
                         
                         <li>
-                            <a class="dropdown-item" href="#">Baterías Electricas</a>
+                            <a class="dropdown-item" href="/bateriaE">Baterías Electricas</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="#">Roland</a></li>
-                                <li><a class="dropdown-item" href="#">Alesis</a></li>
+                                <li><a class="dropdown-item" href="/rolandE">Roland</a></li>
+                                <li><a class="dropdown-item" href="/rolandA">Alesis</a></li>
                           
-                            </ul> 
+                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -78,39 +78,40 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                         <li>
-                            <a class="dropdown-item" href="#">Cabezales</a>
+                            <a class="dropdown-item" href="/cabezales">Cabezales</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="#">ENGL</a></li>
-                                <li><a class="dropdown-item" href="#">Marshall</a></li>
-                                <li><a class="dropdown-item" href="#">Pavey</a></li>
-                                <li><a class="dropdown-item" href="#">EVH</a></li>
+                                <li><a class="dropdown-item" href="/cabezalEngl">ENGL</a></li>
+                                <li><a class="dropdown-item" href="/cabezalMarshall">Marshall</a></li>
+                                <li><a class="dropdown-item" href="/cabezalPavey">Pavey</a></li>
+                                <li><a class="dropdown-item" href="/cabezalEvh">EVH</a></li>
                             </ul>
                         
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">Cajas</a>
+                            <a class="dropdown-item" href="/cajas">Cajas</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="#">ENGL</a></li>
-                                <li><a class="dropdown-item" href="#">Marshall</a></li>
-                                <li><a class="dropdown-item" href="#">Pavey</a></li>
-                                <li><a class="dropdown-item" href="#">EVH</a></li>
+                                <li><a class="dropdown-item" href="/cajasEngl">ENGL</a></li>
+                                <li><a class="dropdown-item" href="/cajasMarshall">Marshall</a></li>
+                                <li><a class="dropdown-item" href="/cajasPavey">Pavey</a></li>
+                                <li><a class="dropdown-item" href="/cajasEvh">EVH</a></li>
                             </ul>
                         
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle"  id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Accesorios Varios
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                        <li><a class="dropdown-item" href="#">Audífonos</a></li>
-                        <li><a class="dropdown-item" href="#">Monitores</a></li>
-                        <li><a class="dropdown-item" href="#">Parlantes</a></li>
-                        <li><a class="dropdown-item" href="#">Cables</a></li>
-                        <li><a class="dropdown-item" href="#">Micrófonos</a></li>
-                        <li><a class="dropdown-item" href="#">Interfaces</a></li>
-                        <li><a class="dropdown-item" href="#">Mixers</a></li>
+                        <li><a class="dropdown-item" href="/audifonos">Audífonos</a></li>
+                        <li><a class="dropdown-item" href="/monitores">Monitores</a></li>
+                        <li><a class="dropdown-item" href="/parlantes">Parlantes</a></li>
+                        <li><a class="dropdown-item" href="/cables">Cables</a></li>
+                        <li><a class="dropdown-item" href="/microfonos">Micrófonos</a></li>
+                        <li><a class="dropdown-item" href="/interfaces">Interfaces</a></li>
+                        <li><a class="dropdown-item" href="/mixers">Mixers</a></li>
+                        <li><a class="dropdown-item" href="/accesoriosGeneral">Todos los Accesorios</a></li>
                     </ul>
                 </li>
             </ul>
