@@ -35,10 +35,30 @@ def homeContador(request):
     return render (request,'contador/home.html')
 
 def homeBodeguero(request):
-    return render (request,'bodeguero/home.html')
+    api_url = 'http://127.0.0.1:8000/api/productos/'
+    response = requests.get(api_url)
+
+    try:
+        data = response.json()
+        productos = data.get('productos', [])
+    
+    except JSONDecodeError:
+        productos = []
+    
+     # Obtener el valor del filtro del formulario
+    filtro_nombre = request.GET.get('nombreProducto')
+
+    # Aplicar el filtro por nombre si se proporciona    
+    if filtro_nombre:
+        productos = [producto for producto in productos if filtro_nombre.lower() in producto['nombre'].lower()]
+    
+    return render (request,'bodeguero/home.html', {'productos': productos})
 
 def homeAdministrador(request):
     return render (request,'administrador/home.html')
+
+def pedidos(request):
+    return render(request,'bodeguero/pedidos.html')
 
 
 class EmailAuthenticationForm(AuthenticationForm):

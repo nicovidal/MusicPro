@@ -3,17 +3,20 @@ from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from .productos import *
+from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
     path('create_user/', create_user, name="create_user"),
     path('create_cliente/', create_cliente, name="create_cliente"),
     path('cliente/', homeUsuario, name="home_cliente"),
-    path('bodeguero/', homeBodeguero, name="home_bodeguero"),
+    path('bodeguero', homeBodeguero, name="home_bodeguero"),
     path('vendedor/', homeVendedor, name="home_vendedor"),
     path('contador/', homeContador, name="home_contador"),
     path('administrador/', homeAdministrador, name="home_administrador"),
+    path('pedidosBodega', pedidos, name="pedidos_bodega"),
     path('login/', login_view, name="login"),
+    path('logout/', LogoutView.as_view(), name='logout'),
 
     path('carrito/',carrito,name="carrito"),
     path('agregar_producto/<int:producto_id>/', agregar_producto, name='agregar_producto'),
