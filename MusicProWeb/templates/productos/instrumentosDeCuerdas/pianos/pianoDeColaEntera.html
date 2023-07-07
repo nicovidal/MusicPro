@@ -45,6 +45,12 @@
                             <li><a class="dropdown-item" href="/bajoActivo">Bajos Activos</a></li>
                             <li><a class="dropdown-item" href="/bajoPasivo">Bajos Pasivos</a></li>
                         </ul>
+                        <li><a class="dropdown-item" href="/pianos">Pianos</a></li>
+                        <ul class="">
+                            <li><a class="dropdown-item" href="/pianoEntera">Piano Cola Entera</a></li>
+                            <li><a class="dropdown-item" href="/pianoMedia">Piano Media Cola</a></li>
+                            <li><a class="dropdown-item" href="/pianolas">pianolas</a></li>
+                        </ul>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -66,7 +72,7 @@
                             <a class="dropdown-item" href="/bateriaE">Baterías Electricas</a>
                             <ul class="">
                                 <li><a class="dropdown-item" href="/rolandE">Roland</a></li>
-                                <li><a class="dropdown-item" href="/rolandA">Alesis</a></li>
+                                <li><a class="dropdown-item" href="/alesisE">Alesis</a></li>
                           
                             </ul>
                         </li>
@@ -132,7 +138,7 @@
     <h1>Pianos de Cola entera</h1>
     <div class="row">
         {% for producto in productos %}
-            {% if producto.marca == 'Entera' %}
+            {% if producto.tipo == 'piano_cola_entera' %}
             <div class="col-2" style="margin-left:20px">
                 <div class="card" style="width:200px">
                     <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
@@ -154,7 +160,7 @@
 
 
    
-    <footer class="bg-light text-center text-black">
+    <footer class="bg-light text-center text-black fixed-bottom">
         <div class="container">
           <div class="p-3">
             Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>

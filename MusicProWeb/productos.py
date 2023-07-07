@@ -390,7 +390,7 @@ def obtener_pianos_entera(request):
     except JSONDecodeError:
         productos = []
     
-    return render(request, 'productos/pianos/instrumentosDeCuerdas/pianoDeColaEntera.html', {'productos': productos})
+    return render(request, 'productos/instrumentosDeCuerdas/pianos/pianoDeColaEntera.html', {'productos': productos})
 
 
 def obtener_pianos_media(request):
@@ -404,7 +404,7 @@ def obtener_pianos_media(request):
     except JSONDecodeError:
         productos = []
     
-    return render(request, 'productos/pianos/instrumentosDeCuerdas/pianoDeMediaCuerda.html', {'productos': productos})
+    return render(request, 'productos/instrumentosDeCuerdas/pianos/pianoDeMediaCuerda.html', {'productos': productos})
 
 def obtener_baterias_acusticas(request):
     api_url = 'http://127.0.0.1:8000/api/productos/'
@@ -417,7 +417,7 @@ def obtener_baterias_acusticas(request):
     except JSONDecodeError:
         productos = []
     
-    return render(request, 'productos/percusion/bateriasAcusticas/bateriaAcustica.html', {'productos': productos})
+    return render(request, 'productos/percusion/bateriasAcusticas/bateriasAcustica.html', {'productos': productos})
 
 def obtener_baterias_acusticas_mapex(request):
     api_url = 'http://127.0.0.1:8000/api/productos/'

@@ -45,6 +45,12 @@
                             <li><a class="dropdown-item" href="/bajoActivo">Bajos Activos</a></li>
                             <li><a class="dropdown-item" href="/bajoPasivo">Bajos Pasivos</a></li>
                         </ul>
+                        <li><a class="dropdown-item" href="/pianos">Pianos</a></li>
+                        <ul class="">
+                            <li><a class="dropdown-item" href="/pianoEntera">Piano Cola Entera</a></li>
+                            <li><a class="dropdown-item" href="/pianoMedia">Piano Media Cola</a></li>
+                            <li><a class="dropdown-item" href="/pianolas">pianolas</a></li>
+                        </ul>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -66,7 +72,7 @@
                             <a class="dropdown-item" href="/bateriaE">Baterías Electricas</a>
                             <ul class="">
                                 <li><a class="dropdown-item" href="/rolandE">Roland</a></li>
-                                <li><a class="dropdown-item" href="/rolandA">Alesis</a></li>
+                                <li><a class="dropdown-item" href="/alesisE">Alesis</a></li>
                           
                             </ul>
                         </li>
@@ -116,7 +122,8 @@
                 </li>
             </ul>
         </div>
-    </div>="navbar navbar-dark bg-dark">
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -127,12 +134,13 @@
     <!-- navbar-->
 
 
+
     
 
-    <h1>Baterias</h1>
+    <h1>Baterias acusticas</h1>
     <div class="row">
         {% for producto in productos %}
-            {% if producto.modelo == 'BAcustica' %}
+            {% if producto.clase == 'bateria_acustica' %}
             <div class="col-2" style="margin-left:20px">
                 <div class="card" style="width:200px">
                     <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
