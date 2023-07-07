@@ -13,6 +13,7 @@ class Producto(models.Model):
         ('bajo_pasivo','bajo_pasivo'),
         ('piano_media_cola','piano_media_cola'),
         ('piano_cola_entera','piano_cola_entera'),
+        ('pianolas','pianolas'),
         ('bateria_acustica_mapex','bateria_acustica_mapex'),
         ('bateria_acustica_pearl','bateria_acustica_pearl'),
         ('bateria_acustica_sonor','bateria_acustica_sonor'),

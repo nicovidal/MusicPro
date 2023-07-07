@@ -138,7 +138,7 @@
     <h1>Pianolas</h1>
     <div class="row">
         {% for producto in productos %}
-            {% if producto.tipo == 'pianola' %}
+            {% if producto.tipo == 'pianolas' %}
             <div class="col-2" style="margin-left:20px">
                 <div class="card" style="width:200px">
                     <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
@@ -161,7 +161,7 @@
     
     
   
-    <footer class="bg-light text-center text-black">
+    <footer class="bg-light text-center text-black bottom-0">
         <div class="container">
           <div class="p-3">
             Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>

@@ -13,7 +13,8 @@ class ProductoView(View):
                 'serie_del_producto': producto.serie_del_producto,
                 'nombre':producto.nombre,
                 'marca': producto.marca,
-                'stock':producto.stock,
+                'stock_tienda':producto.stock_tienda,
+                'stock_bodega':producto.stock_bodega,
                 'precio':producto.precio,
                 'imagen': producto.imagen.url if producto.imagen else None,
                 # Agrega los demás campos del producto que deseas mostrar

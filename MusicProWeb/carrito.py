@@ -17,7 +17,7 @@ class Carrito:
                 "id":producto_data['producto']['id'],
                 "serie_del_producto": producto_data['producto']['serie_del_producto'],
                 "nombre": producto_data['producto']['nombre'],
-                "stock": producto_data['producto']['stock'],
+                "stock": producto_data['producto']['stock_tienda'],
                 "precio": producto_data['producto']['precio'],
                 "cantidad": 1,
                 "imagen": producto_data['producto'].get('imagen'),

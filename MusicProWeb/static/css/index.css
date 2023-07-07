@@ -1,8 +1,10 @@
 html, body {
     height: 100%;
-
+    background-color: blue;
   
 }
+
+
 
 .wrapper {
     min-height: 100%;
@@ -15,18 +17,24 @@ html, body {
     flex: 1;
 }
 
-
-
+.title{
+  text-align: center;
+}
   
   .container {
     min-height: 100%;
     position: relative;
   }
+
+  h1 {
+    text-align: center;
+  }
   
   footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     background-color: #f8f9fa;
     text-align: center;
     padding: 20px 0;
