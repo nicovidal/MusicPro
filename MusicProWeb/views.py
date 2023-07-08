@@ -242,7 +242,6 @@ def total_carrito(request):
 
 
 
-from transbank.webpay.webpay_plus.transaction import Transaction
 
 def pagar(request):
 
@@ -262,7 +261,7 @@ def pagar(request):
   
     buy_order = "orden_de_compra"
     session_id = "identificador_de_sesion"
-    return_url = "http://127.0.0.1:8000/"
+    return_url = "http://127.0.0.1:8000/orden_despacho/"
 
 
     response = transaction.create(buy_order, session_id, monto_total, return_url)
@@ -279,6 +278,10 @@ def pagar(request):
     }
 
     return render(request, 'carro/resumen_pago.html', context )
+
+
+def orden_despacho(request):
+    return render(request, 'carro/orden_despacho.html')
 
 
 def btn_agregar_producto(request, id):
