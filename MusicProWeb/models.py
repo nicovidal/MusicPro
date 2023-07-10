@@ -11,3 +11,21 @@ class CustomUser(AbstractUser):
     )
     
     user_type = models.CharField(max_length=20, choices=USER_TYPES)
+
+class Venta(models.Model):
+    numero_orden=models.BigIntegerField()
+    total=models.IntegerField()
+    fch_compra=models.CharField(max_length=40)
+    idUser=models.ForeignKey(CustomUser,on_delete=models.SET_NULL,null=True)
+    productos = models.TextField()
+
+    def __str__(self):
+        return str(self.numero_orden)
+    
+class VentaProducto(models.Model):
+    cantidad=models.IntegerField()
+    orden=models.ForeignKey(Venta,on_delete=models.SET_NULL,null=True)
+
+
+    def __str__(self):
+        return str(self.cantidad)

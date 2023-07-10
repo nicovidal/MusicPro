@@ -17,7 +17,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.shortcuts import redirect
 from transbank.webpay.webpay_plus.transaction import Transaction
-
+import datetime
 
 
 
@@ -244,62 +244,69 @@ def total_carrito(request):
 
 
 def pagar(request):
-
     monto_total = total_carrito(request)["total_carrito"]
-
-
     commerce_code = 597055555532
     api_key = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
     integration_type = "TEST"  
-
-
     transaction = Transaction()
     transaction.commerce_code = commerce_code
     transaction.api_key = api_key
     transaction.integration_type = integration_type
-
   
     buy_order = "orden_de_compra"
     session_id = "identificador_de_sesion"
     return_url = "http://127.0.0.1:8000/orden_despacho/"
 
-
     response = transaction.create(buy_order, session_id, monto_total, return_url)
-
 
     redirect_url = response["url"]
     token = response["token"]
 
-  
+    # Crear la venta
+    numero_orden = random.randint(100000, 999999)
+    venta = Venta.objects.create(
+        numero_orden=numero_orden,
+        total=monto_total,
+        fch_compra=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        idUser=request.user if request.user.is_authenticated else None
+    )
+
+    # Obtener los productos del carrito
+    carrito = request.session.get('carrito', [])
+
+    # Crear las instancias de VentaProducto y relacionarlas con la venta
+    for producto_id, detalle_producto in carrito.items():
+        cantidad = detalle_producto["cantidad"]
+        venta_producto = VentaProducto.objects.create(
+            cantidad=cantidad,
+            orden=venta,
+        )
+    carrito = Carrito(request)
+    carrito.limpiar()
+
     context = {
         'redirect_url': redirect_url,
         'token': token,
-        'monto_total': monto_total
+        'monto_total': monto_total,
+        'numero_orden': numero_orden,
     }
 
-    return render(request, 'carro/resumen_pago.html', context )
-
-
-
-
-
+    return render(request, 'carro/resumen_pago.html', context)
 
 
 def orden_despacho(request):
     if request.method == 'POST':
         # Obtener datos de la notificación de Webpay
         token_ws = request.POST.get('token_ws')
-        # Verificar la transacción con Webpay para obtener los detalles
-        # Procesar los detalles y generar la venta correspondiente
 
         # Redirigir al usuario a una página de confirmación o mostrar un mensaje de éxito
-
         return render(request, 'carro/orden_despacho.html', {"token": token_ws})
 
     elif request.method == 'GET':
         token_ws = request.GET.get('token_ws')
+        numero_orden = request.GET.get('numero_orden')
 
-        return render(request, 'carro/orden_despacho.html', {"token": token_ws})
+        return render(request, 'carro/orden_despacho.html', {"token": token_ws, "numero_orden": numero_orden})
 
     # Si no es una solicitud POST o GET, redirigir a alguna otra página o mostrar un mensaje de error
     return HttpResponse("Método de solicitud no válido.")
