@@ -280,8 +280,30 @@ def pagar(request):
     return render(request, 'carro/resumen_pago.html', context )
 
 
+
+
+
+
+
 def orden_despacho(request):
-    return render(request, 'carro/orden_despacho.html')
+    if request.method == 'POST':
+        # Obtener datos de la notificación de Webpay
+        token_ws = request.POST.get('token_ws')
+        # Verificar la transacción con Webpay para obtener los detalles
+        # Procesar los detalles y generar la venta correspondiente
+
+        # Redirigir al usuario a una página de confirmación o mostrar un mensaje de éxito
+
+        return render(request, 'carro/orden_despacho.html', {"token": token_ws})
+
+    elif request.method == 'GET':
+        token_ws = request.GET.get('token_ws')
+
+        return render(request, 'carro/orden_despacho.html', {"token": token_ws})
+
+    # Si no es una solicitud POST o GET, redirigir a alguna otra página o mostrar un mensaje de error
+    return HttpResponse("Método de solicitud no válido.")
+
 
 
 def btn_agregar_producto(request, id):
