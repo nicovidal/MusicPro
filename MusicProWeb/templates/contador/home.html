@@ -144,9 +144,31 @@
 <h3>orden:9129391 monto:$10000</h3>
 <button>Confirmar  pago</button>
 
-<h1>productos al cliente</h1>
-<button>Confirmar  confirmar entrega</button>
-
+<h1>Productos al cliente</h1>
+<div class="row">
+    {% for venta in ventas %}
+    {% if venta.estado == 'Enviado'%}
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Número de orden: {{ venta.numero_orden }}</h5>
+            <p class="card-text">Total: $ {{ venta.total }}</p>
+            <p class="card-text">Productos: {{ venta.productos }}</p>
+            <p class="card-text">Estado: {{ venta.estado }}</p>
+            <div class="d-flex">
+            <form method="POST" action="{% url 'actualizar_estado_entregado' venta.id 'Entrega_Finalizada' %}">
+              {% csrf_token %}
+              <button class="btn btn-primary me-2" type="submit">Confirmar entrega a cliente</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%endif%}
+    {% endfor %}
+    <h1> No hay envios pendientes</h1>
+  </div>
+  
 
 
 

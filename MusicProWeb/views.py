@@ -100,9 +100,23 @@ def actualizar_estado_enviado_cliente(request, venta_id, estado):
     # Redirigir de vuelta a la página de inicio del vendedor
     return redirect('home_vendedor')
 
+def actualizar_estado_entregado(request, venta_id, estado):
+    # Obtener la venta por su ID
+    venta = Venta.objects.get(id=venta_id)
+    
+    # Actualizar el estado de la venta
+    venta.estado = estado
+    venta.save()
+    
+    # Redirigir de vuelta a la página de inicio del vendedor
+    return redirect('home_contador')
+
 
 def homeContador(request):
-    return render (request,'contador/home.html')
+
+    ventas=Venta.objects.all()
+
+    return render (request,'contador/home.html',{'ventas':ventas})
 
 def homeBodeguero(request):
     ventas=Venta.objects.all()
