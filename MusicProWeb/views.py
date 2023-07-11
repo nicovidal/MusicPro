@@ -18,6 +18,7 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from transbank.webpay.webpay_plus.transaction import Transaction
 import datetime
+import json
 
 
 
@@ -243,6 +244,10 @@ def total_carrito(request):
 
 
 
+
+
+# ...
+
 def pagar(request):
     monto_total = total_carrito(request)["total_carrito"]
     commerce_code = 597055555532
@@ -262,34 +267,45 @@ def pagar(request):
     redirect_url = response["url"]
     token = response["token"]
 
+    # Obtener los productos del carrito
+    carrito = request.session.get('carrito', [])
+
+    # Obtener el nombre de los productos y la suma de la cantidad total
+    productos = []
+    cantidad_total = 0
+    for producto_id, detalle_producto in carrito.items():
+        cantidad = detalle_producto["cantidad"]
+        nombre = detalle_producto["nombre"]
+        productos.append(nombre)
+        cantidad_total += cantidad
+
+    # Imprimir el contenido del carrito
+    print("Productos:", productos)
+    print("Cantidad total:", cantidad_total)
+
     # Crear la venta
     numero_orden = random.randint(100000, 999999)
     venta = Venta.objects.create(
         numero_orden=numero_orden,
         total=monto_total,
         fch_compra=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        idUser=request.user if request.user.is_authenticated else None
+        idUser=request.user if request.user.is_authenticated else None,
+        productos=productos,
+        cantidad=cantidad_total
     )
 
-    # Obtener los productos del carrito
-    carrito = request.session.get('carrito', [])
-
     # Crear las instancias de VentaProducto y relacionarlas con la venta
-    for producto_id, detalle_producto in carrito.items():
-        cantidad = detalle_producto["cantidad"]
-        venta_producto = VentaProducto.objects.create(
-            cantidad=cantidad,
-            orden=venta,
-        )
-    carrito = Carrito(request)
-    carrito.limpiar()
+ 
 
     context = {
         'redirect_url': redirect_url,
         'token': token,
         'monto_total': monto_total,
         'numero_orden': numero_orden,
-    }
+        'productos': productos,
+        'cantidad_total': cantidad_total,
+    }  
+    
 
     return render(request, 'carro/resumen_pago.html', context)
 
@@ -305,6 +321,8 @@ def orden_despacho(request):
     elif request.method == 'GET':
         token_ws = request.GET.get('token_ws')
         numero_orden = request.GET.get('numero_orden')
+        carrito = Carrito(request)
+        carrito.limpiar()
 
         return render(request, 'carro/orden_despacho.html', {"token": token_ws, "numero_orden": numero_orden})
 

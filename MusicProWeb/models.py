@@ -18,14 +18,8 @@ class Venta(models.Model):
     fch_compra=models.CharField(max_length=40)
     idUser=models.ForeignKey(CustomUser,on_delete=models.SET_NULL,null=True)
     productos = models.TextField()
+    cantidad = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.numero_orden)
     
-class VentaProducto(models.Model):
-    cantidad=models.IntegerField()
-    orden=models.ForeignKey(Venta,on_delete=models.SET_NULL,null=True)
-
-
-    def __str__(self):
-        return str(self.cantidad)
