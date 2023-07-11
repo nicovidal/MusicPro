@@ -151,7 +151,7 @@
         <div class="card-body">
           <h3 class="card-title">Orden: {{ venta.numero_orden }}</h3>
           <h5 class="card-text">Monto: ${{ venta.total }}</h5>
-          <form method="POST" action="{% url 'actualizar_estado_transferencia' venta.id 'Aceptado' %}" >
+          <form method="POST" action="{% url 'actualizar_estado_transferencia' venta.id 'Procesando' %}" >
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Confirmar pago</button>
           </form>
