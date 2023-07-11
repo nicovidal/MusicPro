@@ -22,6 +22,7 @@ urlpatterns = [
     path('agregar_producto/<int:producto_id>/', agregar_producto, name='agregar_producto'),
     path('agregar_producto_pedido/<int:producto_id>/', agregar_producto_pedido, name='agregar_producto_pedido'),
     path('pagar/', pagar, name='pagar'),
+    path('transferencia/', tranferencia, name='tranferencia'),
     path('agregar_btn/<int:id>/', btn_agregar_producto, name="Adds"),
     path('restar/<int:id>/', btn_quitar_producto, name="Sub"),
     path('despacho/',despacho,name="despacho"),

@@ -381,6 +381,41 @@ def pagar(request):
 
     return render(request, 'carro/resumen_pago.html', context)
 
+def tranferencia(request):
+    
+    monto_total = total_carrito(request)["total_carrito"]
+        # Obtener los productos del carrito
+    carrito = request.session.get('carrito', [])
+
+    # Obtener el nombre de los productos y la suma de la cantidad total
+    productos = []
+    cantidad_total = 0
+    for producto_id, detalle_producto in carrito.items():
+        cantidad = detalle_producto["cantidad"]
+        nombre = detalle_producto["nombre"]
+        productos.append(nombre)
+        cantidad_total += cantidad
+
+    # Imprimir el contenido del carrito
+    print("Productos:", productos)
+    print("Cantidad total:", cantidad_total)
+
+    # Crear la venta
+    numero_orden = random.randint(100000, 999999)
+    estado='Procesando'
+    venta = Venta.objects.create(
+        numero_orden=numero_orden,
+        total=monto_total,
+        fch_compra=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        idUser=request.user if request.user.is_authenticated else None,
+        productos=productos,
+        cantidad=cantidad_total,
+        estado=estado
+    )
+    venta.save()
+
+    return render (request,'carro/transferencia.html',{'monto_total':monto_total})
+
 
 def orden_despacho(request):
     if request.method == 'POST':

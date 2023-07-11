@@ -155,17 +155,16 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body">
+                <h1>Datos Tranferencia:</h1>
+                <h1>Banco:Banco MusicPro</h1>
+               <h1>Rut:78.928.282-1</h1>
+                <h1>Cuenta:756272892</h1>
+                <h1>correo:contabilidad@musicpro.cl</h1>
+             
               <h2 class="text-center">Resumen de Pago</h2>
               <p class="text-center">Monto total: ${{ monto_total }}</p>
-              <h4 class="text-center">Elija metodo de pago</h4>
-              <form method="post" action="{{ redirect_url }}">
-                <input type="hidden" name="token_ws" value="{{ token }}" />
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Pago WebPay</button>
-                </div>
-              </form>
               <div class="text-center mt-4">
-              <button type="submit" class="btn btn-primary text" onclick="window.location.href='{% url 'tranferencia'  %}'">Tranferencia Bancaria</button>
+              <button type="submit" class="btn btn-primary text" >Tranferencia completada!</button>
             </div>
             </div>
           </div>
