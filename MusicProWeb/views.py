@@ -326,7 +326,7 @@ def pagar(request):
     transaction.commerce_code = commerce_code
     transaction.api_key = api_key
     transaction.integration_type = integration_type
-  
+
     buy_order = "orden_de_compra"
     session_id = "identificador_de_sesion"
     return_url = "http://127.0.0.1:8000/orden_despacho/"
@@ -352,9 +352,9 @@ def pagar(request):
     print("Productos:", productos)
     print("Cantidad total:", cantidad_total)
 
-    # Crear la venta
+    # Crear la venta con transferencia=False
     numero_orden = random.randint(100000, 999999)
-    estado='Procesando'
+    estado = 'Procesando'
     venta = Venta.objects.create(
         numero_orden=numero_orden,
         total=monto_total,
@@ -362,12 +362,11 @@ def pagar(request):
         idUser=request.user if request.user.is_authenticated else None,
         productos=productos,
         cantidad=cantidad_total,
-        estado=estado
+        estado=estado,
+        transferencia=False
     )
-    venta.save()
 
     # Crear las instancias de VentaProducto y relacionarlas con la venta
- 
 
     context = {
         'redirect_url': redirect_url,
@@ -376,13 +375,21 @@ def pagar(request):
         'numero_orden': numero_orden,
         'productos': productos,
         'cantidad_total': cantidad_total,
-    }  
-    
+    }
 
     return render(request, 'carro/resumen_pago.html', context)
-
-def tranferencia(request):
     
+
+def transferencia_page(request):
+
+    monto_total = total_carrito(request)["total_carrito"]
+    
+
+    return render (request,'carro/transferencia.html',{'monto_total':monto_total})
+
+
+def transferencia(request):
+
     monto_total = total_carrito(request)["total_carrito"]
         # Obtener los productos del carrito
     carrito = request.session.get('carrito', [])
@@ -400,9 +407,9 @@ def tranferencia(request):
     print("Productos:", productos)
     print("Cantidad total:", cantidad_total)
 
-    # Crear la venta
+     # Crear la venta
     numero_orden = random.randint(100000, 999999)
-    estado='Procesando'
+    estado = 'Procesando'
     venta = Venta.objects.create(
         numero_orden=numero_orden,
         total=monto_total,
@@ -410,11 +417,15 @@ def tranferencia(request):
         idUser=request.user if request.user.is_authenticated else None,
         productos=productos,
         cantidad=cantidad_total,
-        estado=estado
+        estado=estado,
+        transferencia=True
     )
-    venta.save()
 
-    return render (request,'carro/transferencia.html',{'monto_total':monto_total})
+    carrito = Carrito(request)
+    carrito.limpiar()
+
+
+    return redirect('orden_despacho')
 
 
 def orden_despacho(request):

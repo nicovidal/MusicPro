@@ -20,6 +20,7 @@ class Venta(models.Model):
     productos = models.TextField()
     cantidad = models.IntegerField(default=0)
     estado=models.CharField(max_length=100)
+    transferencia=models.BooleanField()
 
     def __str__(self):
         return str(self.numero_orden)

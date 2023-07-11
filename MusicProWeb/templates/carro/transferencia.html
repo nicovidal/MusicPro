@@ -155,22 +155,23 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body">
-                <h1>Datos Tranferencia:</h1>
-                <h1>Banco:Banco MusicPro</h1>
-               <h1>Rut:78.928.282-1</h1>
-                <h1>Cuenta:756272892</h1>
-                <h1>correo:contabilidad@musicpro.cl</h1>
-             
+              <h1>Datos Transferencia:</h1>
+              <h1>Banco: Banco MusicPro</h1>
+              <h1>Rut: 78.928.282-1</h1>
+              <h1>Cuenta: 756272892</h1>
+              <h1>Correo: contabilidad@musicpro.cl</h1>
               <h2 class="text-center">Resumen de Pago</h2>
               <p class="text-center">Monto total: ${{ monto_total }}</p>
-              <div class="text-center mt-4">
-              <button type="submit" class="btn btn-primary text" >Tranferencia completada!</button>
-            </div>
+              <form method="POST" action="{% url 'tranferencia' %}">
+                {% csrf_token %}
+                <div class="text-center mt-4">
+                  <button type="submit" class="btn btn-primary text">Transferencia completada!</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      
 
 
 
