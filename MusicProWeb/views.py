@@ -109,6 +109,17 @@ def actualizar_estado_entregado(request, venta_id, estado):
     # Redirigir de vuelta a la página de inicio del vendedor
     return redirect('home_contador')
 
+def actualizar_estado_transferencia(request, venta_id, estado):
+    # Obtener la venta por su ID
+    venta = Venta.objects.get(id=venta_id)
+    
+    # Actualizar el estado de la venta
+    venta.estado = estado
+    venta.save()
+    
+    # Redirigir de vuelta a la página de inicio del vendedor
+    return redirect('home_contador')
+
 
 def homeContador(request):
 
@@ -388,12 +399,10 @@ def transferencia_page(request):
 
 
 def transferencia(request):
-
     monto_total = total_carrito(request)["total_carrito"]
-        # Obtener los productos del carrito
     carrito = request.session.get('carrito', [])
 
-    # Obtener el nombre de los productos y la suma de la cantidad total
+
     productos = []
     cantidad_total = 0
     for producto_id, detalle_producto in carrito.items():
@@ -402,13 +411,13 @@ def transferencia(request):
         productos.append(nombre)
         cantidad_total += cantidad
 
-    # Imprimir el contenido del carrito
+
     print("Productos:", productos)
     print("Cantidad total:", cantidad_total)
 
-     # Crear la venta
+ 
     numero_orden = random.randint(100000, 999999)
-    estado = 'Procesando'
+    estado = 'Por Confirmar Tranferencia'
     venta = Venta.objects.create(
         numero_orden=numero_orden,
         total=monto_total,

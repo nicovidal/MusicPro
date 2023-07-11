@@ -33,6 +33,7 @@ urlpatterns = [
     path('actualizar_estado_despachado/<int:venta_id>/<str:estado>/', actualizar_estado_despachado, name='actualizar_estado_despachado'),
     path('actualizar_estado_cliente/<int:venta_id>/<str:estado>/', actualizar_estado_enviado_cliente, name='actualizar_estado_enviado_cliente'),
     path('actualizar_estado_entregado/<int:venta_id>/<str:estado>/', actualizar_estado_entregado, name='actualizar_estado_entregado'),
+    path('actualizar_estado_transferencia/<int:venta_id>/<str:estado>/', actualizar_estado_transferencia, name='actualizar_estado_transferencia'),
 
     #productos rutas
     path('', obtener_productos, name="home"),
