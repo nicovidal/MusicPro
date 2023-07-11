@@ -27,7 +27,12 @@ import json
 # Create your views here.
 
 def homeUsuario(request):
-    return render(request,'cliente/home.html')
+
+    ventas = Venta.objects.filter(idUser=request.user)
+
+
+
+    return render(request,'cliente/home.html',{"ventas":ventas})
 
 def homeVendedor(request):
     api_url = 'http://127.0.0.1:8000/api/productos/'
@@ -250,6 +255,7 @@ def total_carrito(request):
 
 def pagar(request):
     monto_total = total_carrito(request)["total_carrito"]
+
     commerce_code = 597055555532
     api_key = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
     integration_type = "TEST"  
@@ -285,13 +291,15 @@ def pagar(request):
 
     # Crear la venta
     numero_orden = random.randint(100000, 999999)
+    estado='Procesando'
     venta = Venta.objects.create(
         numero_orden=numero_orden,
         total=monto_total,
         fch_compra=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         idUser=request.user if request.user.is_authenticated else None,
         productos=productos,
-        cantidad=cantidad_total
+        cantidad=cantidad_total,
+        estado=estado
     )
     venta.save()
 
@@ -311,7 +319,7 @@ def pagar(request):
     return render(request, 'carro/resumen_pago.html', context)
 
 
-def orden_despacho(request,numero_orden):
+def orden_despacho(request):
     if request.method == 'POST':
         # Obtener datos de la notificación de Webpay
         token_ws = request.POST.get('token_ws')

@@ -45,6 +45,12 @@
                             <li><a class="dropdown-item" href="/bajoActivo">Bajos Activos</a></li>
                             <li><a class="dropdown-item" href="/bajoPasivo">Bajos Pasivos</a></li>
                         </ul>
+                        <li><a class="dropdown-item" href="/pianos">Pianos</a></li>
+                        <ul class="">
+                            <li><a class="dropdown-item" href="/pianoEntera">Piano Cola Entera</a></li>
+                            <li><a class="dropdown-item" href="/pianoMedia">Piano Media Cola</a></li>
+                            <li><a class="dropdown-item" href="/pianolas">pianolas</a></li>
+                        </ul>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -66,7 +72,7 @@
                             <a class="dropdown-item" href="/bateriaE">Baterías Electricas</a>
                             <ul class="">
                                 <li><a class="dropdown-item" href="/rolandE">Roland</a></li>
-                                <li><a class="dropdown-item" href="/rolandA">Alesis</a></li>
+                                <li><a class="dropdown-item" href="/alesisE">Alesis</a></li>
                           
                             </ul>
                         </li>
@@ -117,30 +123,38 @@
             </ul>
         </div>
     </div>
-    <div class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-light border">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="btn btn-primary ms-auto" href="/login/">Login</a>
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary ms-auto" href="/logout/">Logout</a>
+            {% else %}
+                <a class="btn btn-primary ms-auto" href="/login/">Login</a>
+            {% endif %}
         </div>
     </nav>
-    <!-- navbar-->
 
 
+    <h1>soy cliente xd </h1>
 
-
-
-
-
-
-<h1>soy cliente xd </h1>
-
-
-
-
-
-
+    {% if ventas %}
+      <h2>Mis compras:</h2>
+      <ul>
+        {% for venta in ventas %}
+          <li>
+            <p>Número de orden: {{ venta.numero_orden }}</p>
+            <p>Total: $ {{ venta.total }}</p>
+            <!-- Agrega aquí cualquier otra información de la venta que desees mostrar -->
+            <p>Productos : {{ venta.productos }}</p>
+            <p>Estado:{{ venta.estado }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No tienes ventas registradas.</p>
+    {% endif %}
 
 
 
@@ -157,7 +171,7 @@
     
 
 
-<footer class="bg-light text-center text-black">
+<footer class="bg-light text-center text-black fixed-bottom">
     <div class="container">
       <div class="p-3">
         Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
