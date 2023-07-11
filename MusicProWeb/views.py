@@ -293,6 +293,7 @@ def pagar(request):
         productos=productos,
         cantidad=cantidad_total
     )
+    venta.save()
 
     # Crear las instancias de VentaProducto y relacionarlas con la venta
  
@@ -310,7 +311,7 @@ def pagar(request):
     return render(request, 'carro/resumen_pago.html', context)
 
 
-def orden_despacho(request):
+def orden_despacho(request,numero_orden):
     if request.method == 'POST':
         # Obtener datos de la notificación de Webpay
         token_ws = request.POST.get('token_ws')
@@ -320,11 +321,10 @@ def orden_despacho(request):
 
     elif request.method == 'GET':
         token_ws = request.GET.get('token_ws')
-        numero_orden = request.GET.get('numero_orden')
         carrito = Carrito(request)
         carrito.limpiar()
 
-        return render(request, 'carro/orden_despacho.html', {"token": token_ws, "numero_orden": numero_orden})
+        return render(request, 'carro/orden_despacho.html', {"token": token_ws})
 
     # Si no es una solicitud POST o GET, redirigir a alguna otra página o mostrar un mensaje de error
     return HttpResponse("Método de solicitud no válido.")
