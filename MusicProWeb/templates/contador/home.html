@@ -140,9 +140,26 @@
 
 
 <h1>Contador: {{ user.first_name }}</h1>
-<h1>Tranferencias Realizadas</h1>
-<h3>orden:9129391 monto:$10000</h3>
-<button>Confirmar  pago</button>
+
+<h1>Transferencias Realizadas</h1>
+
+<div class="row">
+  {% for venta in transferencias %}
+    <div class="col-md-4 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Orden: {{ venta.numero_orden }}</h3>
+          <h5 class="card-text">Monto: ${{ venta.total }}</h5>
+          <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Confirmar pago</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
 
 <h1>Productos al cliente</h1>
 <div class="row">

@@ -27,12 +27,10 @@ import json
 # Create your views here.
 
 def homeUsuario(request):
-
     ventas = Venta.objects.filter(idUser=request.user)
+   
 
-
-
-    return render(request,'cliente/home.html',{"ventas":ventas})
+    return render(request, 'cliente/home.html', {"ventas": ventas})
 
 def homeVendedor(request):
     ventas=Venta.objects.all()
@@ -114,9 +112,10 @@ def actualizar_estado_entregado(request, venta_id, estado):
 
 def homeContador(request):
 
-    ventas=Venta.objects.all()
+    ventas = Venta.objects.filter(idUser=request.user)
+    transferencias = Venta.objects.filter(transferencia=True)
 
-    return render (request,'contador/home.html',{'ventas':ventas})
+    return render(request, 'contador/home.html', {"ventas": ventas, 'transferencias': transferencias})
 
 def homeBodeguero(request):
     ventas=Venta.objects.all()
