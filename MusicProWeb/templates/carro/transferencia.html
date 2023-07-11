@@ -162,7 +162,7 @@
               <h1>Correo: contabilidad@musicpro.cl</h1>
               <h2 class="text-center">Resumen de Pago</h2>
               <p class="text-center">Monto total: ${{ monto_total }}</p>
-              <form method="POST" action="{% url 'tranferencia' %}">
+              <form method="POST" action="{% url 'transferencia' %}">
                 {% csrf_token %}
                 <div class="text-center mt-4">
                   <button type="submit" class="btn btn-primary text">Transferencia completada!</button>
