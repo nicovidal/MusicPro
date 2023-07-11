@@ -35,6 +35,7 @@ def homeUsuario(request):
     return render(request,'cliente/home.html',{"ventas":ventas})
 
 def homeVendedor(request):
+    ventas=Venta.objects.all()
     api_url = 'http://127.0.0.1:8000/api/productos/'
     response = requests.get(api_url)
 
@@ -51,12 +52,60 @@ def homeVendedor(request):
     # Aplicar el filtro por nombre si se proporciona    
     if filtro_nombre:
         productos = [producto for producto in productos if filtro_nombre.lower() in producto['nombre'].lower()]
-    return render (request,'vendedor/home.html',{'productos':productos})
+    return render (request,'vendedor/home.html',{'productos':productos ,'ventas':ventas})
+
+
+def actualizar_estado_venta(request, venta_id, estado):
+    # Obtener la venta por su ID
+    venta = Venta.objects.get(id=venta_id)
+    
+    # Actualizar el estado de la venta
+    venta.estado = estado
+    venta.save()
+    
+    # Redirigir de vuelta a la página de inicio del vendedor
+    return redirect('home_vendedor')
+
+def actualizar_estado_pedido(request, venta_id, estado):
+    # Obtener la venta por su ID
+    venta = Venta.objects.get(id=venta_id)
+    
+    # Actualizar el estado de la venta
+    venta.estado = estado
+    venta.save()
+    
+    # Redirigir de vuelta a la página de inicio del vendedor
+    return redirect('home_bodeguero')
+
+
+def actualizar_estado_despachado(request, venta_id, estado):
+    # Obtener la venta por su ID
+    venta = Venta.objects.get(id=venta_id)
+    
+    # Actualizar el estado de la venta
+    venta.estado = estado
+    venta.save()
+    
+    # Redirigir de vuelta a la página de inicio del vendedor
+    return redirect('home_bodeguero')
+
+def actualizar_estado_enviado_cliente(request, venta_id, estado):
+    # Obtener la venta por su ID
+    venta = Venta.objects.get(id=venta_id)
+    
+    # Actualizar el estado de la venta
+    venta.estado = estado
+    venta.save()
+    
+    # Redirigir de vuelta a la página de inicio del vendedor
+    return redirect('home_vendedor')
+
 
 def homeContador(request):
     return render (request,'contador/home.html')
 
 def homeBodeguero(request):
+    ventas=Venta.objects.all()
     api_url = 'http://127.0.0.1:8000/api/productos/'
     response = requests.get(api_url)
 
@@ -74,7 +123,7 @@ def homeBodeguero(request):
     if filtro_nombre:
         productos = [producto for producto in productos if filtro_nombre.lower() in producto['nombre'].lower()]
     
-    return render (request,'bodeguero/home.html', {'productos': productos})
+    return render (request,'bodeguero/home.html', {'productos': productos ,'ventas':ventas})
 
 def homeAdministrador(request):
     return render (request,'administrador/home.html')

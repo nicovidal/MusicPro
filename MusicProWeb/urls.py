@@ -26,6 +26,10 @@ urlpatterns = [
     path('restar/<int:id>/', btn_quitar_producto, name="Sub"),
     path('despacho/',despacho,name="despacho"),
     path('orden_despacho/',orden_despacho,name="orden_despacho"),
+    path('actualizar_estado_venta/<int:venta_id>/<str:estado>/', actualizar_estado_venta, name='actualizar_estado_venta'),
+    path('actualizar_estado_pedido/<int:venta_id>/<str:estado>/', actualizar_estado_pedido, name='actualizar_estado_pedido'),
+    path('actualizar_estado_despachado/<int:venta_id>/<str:estado>/', actualizar_estado_despachado, name='actualizar_estado_despachado'),
+    path('actualizar_estado_cliente/<int:venta_id>/<str:estado>/', actualizar_estado_enviado_cliente, name='actualizar_estado_enviado_cliente'),
 
     #productos rutas
     path('', obtener_productos, name="home"),
