@@ -268,8 +268,8 @@ def carrito(request):
     carrito = Carrito(request)
     productos = carrito.get_productos()  # Obtener los productos del carrito
     total = total_carrito(request)
- 
-    return render(request, 'carro/carrito.html', {'productos': productos, 'total_carrito': total['total_carrito']})
+
+    return render(request, 'carro/carrito.html', {'productos': productos, 'total_carrito': total['total_carrito'],'descuento': total['descuento']})
 
 def despacho(request):
     carrito = Carrito(request)
@@ -316,7 +316,16 @@ def total_carrito(request):
     if "carrito" in request.session.keys():
         for key, value in request.session["carrito"].items():
             total += int(value["acumulado"])
-    return {"total_carrito": total}
+
+    descuento = 0
+    if request.user.is_authenticated and len(request.session["carrito"]) > 4:
+        descuento = total * 0.2  # Calcular el descuento del 50%
+
+    total_con_descuento = total - descuento
+
+    return {"total_carrito": total_con_descuento, "descuento": descuento}
+
+
 
 
 

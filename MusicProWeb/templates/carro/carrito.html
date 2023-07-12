@@ -141,75 +141,66 @@
 
     <div class="">
         <div class="alert alert-primary" role="alert">
-        <table class="table table-bordered">
-        
+            <table class="table table-bordered">
                 {% csrf_token %}
                 <thead>
                     <tr>
                         <th scope="row" colspan="3" class="text-center">Carrito</th>
                     </tr>
-                    
                     <tr>
-                      
                         <th scope="col">Imagen</th>
                         <th scope="col">NOMBRE</th>
                         <th scope="col">PRECIO</th>
                         <th scope="col">Total producto</th>
                         <th scope="col">CANTIDAD</th>
                     </tr>
-                <thead>
+                </thead>
                 <tbody>
-                {% if request.session.carrito.items %}
-                {% for key, value in request.session.carrito.items %}
+                    {% if request.session.carrito.items %}
+                    {% for key, value in request.session.carrito.items %}
                     <tr>
                         <td><img src="{{ value.imagen }}" class="card-img-top img-fluid" alt="{{ value.nombre }}" style="width: 100px; height: auto;"></td>
                         <td>{{ value.nombre }}</td>
                         <td>${{ value.precio }}</td>
-                        <td>${{value.acumulado}}</td>
-                        
-                        <td><a href="{% url 'Sub' value.id %}" class="badge btn btn-dark badge-dark" {% if value.cantidad <= 1 %} disabled {% endif%}>-</a> {{value.cantidad}} 
-                    
+                        <td>${{ value.acumulado }}</td>
+                        <td>
+                            <a href="{% url 'Sub' value.id %}" class="badge btn btn-dark badge-dark" {% if value.cantidad <= 1 %} disabled {% endif%}>-</a> 
+                            {{ value.cantidad }} 
                             <a href="{% url 'Adds' value.id %}" class="badge btn btn-dark badge-dark">+</a>
-
-                         
                         </td>
                     </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="3">
-                        <div class="alert alert-danger text-center">Sin productos</div>
-                    </td>
-                </tr>
-                {% endif %}
-             {% comment %}        <tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3">
+                            <div class="alert alert-danger text-center">Sin productos</div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
                         <th scope="row">Descuento:</th>
-                        <td colspan="2" id="descuento" name="descuento">$ {{descuentos}}</td>
-                    </tr> {% endcomment %}
+                        <td colspan="2" id="descuento" name="descuento">$ {{ descuento }}</td>
+                    </tr>
         
                     <tr>
-                     
                         <th scope="row">Total:</th>
-                        <td colspan="2" id="total_carrito" name="total_carrito">$ {{total_carrito}}</td>
+                        <td colspan="2" id="total_carrito" name="total_carrito">$ {{ total_carrito }}</td>
                     </tr>
                 </tbody>
                 <tr>
                     <td>
-                    <div class="row text-center">
-                        {% comment %} <div class="col-4"><a href="{% url 'productos' %}" class="btn btn-primary btn-lg" >Atras</a></div> {% endcomment %}
-                       {% comment %}  <div class="col-4"><a href="{% url 'CLS' %}" class="btn btn-primary btn-lg" >Limpiar</a></div> {% endcomment %}
-                     {% comment %}    <div class="col-4"><button type="submit" {% if total_carrito <= 0 %} disabled {% endif%} class="btn btn-primary btn-lg">Comprar</button></div> {% endcomment %}
-                        <div class="col-6"><a type="" href="/despacho/" class="btn btn-primary btn-lg">Proceder a despacho</a></div>
-                    </div>
-                    </td>            
+                        <div class="row text-center">
+                            <div class="col-6"><a type="" href="/despacho/" class="btn btn-primary btn-lg">Proceder a despacho</a></div>
+                        </div>
+                    </td>
                 </tr>
                 {% if messages %}
-                    {% for message in messages %}
-                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }} </div>
-                    {% endfor %}
-                {% endif %}   
-    
-        </table>
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }} </div>
+                {% endfor %}
+                {% endif %}
+            </table>
+                        
     
         </div>
 
