@@ -123,16 +123,26 @@
             </ul>
         </div>
     </div>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-light border">
         <div class="container-fluid">
+            {% if user.is_authenticated %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </form>
+          
+            {% else %}
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="btn btn-primary ms-auto" href="/login/">Login</a>
+            {% endif %}
+
         </div>
     </nav>
-    <!-- navbar-->
-
 
 
     <h1>Guitarras Solido</h1>
