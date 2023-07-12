@@ -5,12 +5,15 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/css/index.css' %}">
+  {% comment %}   <link rel="stylesheet" href="{% static '/css/index.css' %}"> {% endcomment %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         .dropdown:hover .dropdown-menu {
             display: block;
         }
+
+        
+        
     </style>
 
     <title>MusicPro</title>
@@ -152,7 +155,7 @@
     
 
 
-    <div class="row">
+    <div class="row"  style="min-height: 100vh; position: relative;">
         <div class="col-md-8">
           <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
@@ -233,7 +236,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 cart-container">
           <div class="alert alert-primary" role="alert">
             <table class="table table-bordered">
               <form action="/pagar/" method="POST">
@@ -280,43 +283,24 @@
             </table>
             
           </div>
+     
         </div>
+
+
       </div>
-
-        <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="modalCompraLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalCompraLabel">Selecciona una opción</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>¿Cómo deseas continuar?</p>
-                </div>
-                <div class="modal-footer">
-                  <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
-                  <a {% comment %} href="{% url 'comprar_como_invitado' %}"  {% endcomment %}class="btn btn-secondary">Continuar como invitado</a>
-                </div>
-              </div>
-            </div>
+      <footer class="bg-light text-center text-black ">
+        <div class="container">
+          <div class="p-3">
+            Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
+            &copy; 2023 - Integración de plataforma
           </div>
+        </div>
+      </footer>
 
-        
 
-
-    
-    
   
-          <footer class="bg-light text-center text-black fixed-bottom" >
-            <div class="container">
-              <div class="p-3">
-                Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
-                &copy; 2023 - Integración de plataforma
-              </div>
-            </div>
-          </footer>
+
+          
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
