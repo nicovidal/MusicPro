@@ -3,6 +3,7 @@
 
 <head>
     {% load static %}
+    {% load humanize %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
@@ -143,18 +144,12 @@
 
 
 
+<div class="container">
+<h1 class="text-center">Contador: {{ user.first_name }}</h1>
+</div>
 
-
-
-
-
-
-
-
-<h1>Contador: {{ user.first_name }}</h1>
-
-<h1>Transferencias Realizadas</h1>
-
+<div class="container">
+<h1 class="text-center">Transferencias Realizadas</h1>
 <div class="row">
   {% for venta in transferencias %}
     {% if venta.estado == "Por Confirmar Tranferencia"%}
@@ -162,7 +157,7 @@
       <div class="card">
         <div class="card-body">
           <h3 class="card-title">Orden: {{ venta.numero_orden }}</h3>
-          <h5 class="card-text">Monto: ${{ venta.total }}</h5>
+          <h5 class="card-text">Monto: ${{ venta.total |intcomma }}</h5>
           <form method="POST" action="{% url 'actualizar_estado_transferencia' venta.id 'Procesando' %}" >
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Confirmar pago</button>
@@ -173,9 +168,10 @@
     {% endif %}
   {% endfor %}
 </div>
+</div>
 
-
-<h1>Productos al cliente</h1>
+<div class="container">
+<h1 class="text-center">Productos al cliente</h1>
 <div class="row">
     {% for venta in ventas %}
     {% if venta.estado == 'Enviado'%}
@@ -197,7 +193,8 @@
       </div>
       {%endif%}
     {% endfor %}
-    <h1> No hay envios pendientes</h1>
+ 
+  </div>
   </div>
   
 

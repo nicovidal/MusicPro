@@ -3,6 +3,7 @@
 
 <head>
     {% load static %}
+    {% load humanize %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
@@ -126,60 +127,50 @@
     </div>
     <nav class="navbar navbar-light border">
         <div class="container-fluid">
-            {% if user.is_authenticated %}
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form>
-          
-            {% else %}
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="btn btn-primary ms-auto" href="/login/">Login</a>
-            {% endif %}
-
+    
+            <div class="d-flex ms-auto">
+                <a class="btn btn-primary me-2" href="/carrito/">Carro de Compras</a>
+    
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                {% else %}
+                    <a class="btn btn-primary" href="/login/">Login</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 
-
-    <h1>soy cliente xd </h1>
-
-    {% if ventas %}
-      <h2>Mis compras:</h2>
-      <ul>
-        {% for venta in ventas %}
-          <li>
-            <p>Número de orden: {{ venta.numero_orden }}</p>
-            <p>Total: $ {{ venta.total }}</p>
-            <!-- Agrega aquí cualquier otra información de la venta que desees mostrar -->
-            <p>Productos : {{ venta.productos }}</p>
-            <p>Estado:{{ venta.estado }}</p>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No tienes compras registradas</p>
-    {% endif %}
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="container">
+    <h1 class="text-center">Bievenido {{ user.first_name}} </h1>
+</div>
+    <div class="container">
+        {% if ventas %}
+            <h2 class="text-center">Mis compras:</h2>
+            <div class="row">
+                {% for venta in ventas %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Número de orden: {{ venta.numero_orden }}</h5>
+                                <p class="card-text">Total: $ {{ venta.total |intcomma }}</p>
+                                <p class="card-text">Productos: {{ venta.productos }}</p>
+                                <p class="card-text">Estado: {{ venta.estado }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No tienes compras registradas</p>
+        {% endif %}
+    </div>
     
-
-
 <footer class="bg-light text-center text-black fixed-bottom">
     <div class="container">
       <div class="p-3">
