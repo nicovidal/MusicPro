@@ -290,6 +290,7 @@ def create_cliente(request):
 
 
 """Carrito"""
+
 def carrito(request):
     carrito = Carrito(request)
     productos = carrito.get_productos() 

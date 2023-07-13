@@ -147,13 +147,13 @@
                 {% csrf_token %}
                 <thead>
                     <tr>
-                        <th scope="row" colspan="3" class="text-center">Carrito</th>
+                        <th scope="row" colspan="3" class="text-center">CARRITO</th>
                     </tr>
                     <tr>
-                        <th scope="col">Imagen</th>
+                        <th scope="col">IMAGEN</th>
                         <th scope="col">NOMBRE</th>
                         <th scope="col">PRECIO</th>
-                        <th scope="col">Total producto</th>
+                        <th scope="col">TOTAL PRODUCTO</th>
                         <th scope="col">CANTIDAD</th>
                     </tr>
                 </thead>
@@ -206,27 +206,7 @@
     
         </div>
 
-        <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="modalCompraLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalCompraLabel">Selecciona una opción</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>¿Cómo deseas continuar?</p>
-                </div>
-                <div class="modal-footer">
-                  <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
-                  <a {% comment %} href="{% url 'comprar_como_invitado' %}"  {% endcomment %}class="btn btn-secondary">Continuar como invitado</a>
-                </div>
-              </div>
-            </div>
-          </div>
 
-        
 
 
 
