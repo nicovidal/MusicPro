@@ -3,6 +3,7 @@
 
 <head>
     {% load static %}
+    {% load humanize %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
@@ -72,7 +73,7 @@
                             <li>
                                 <a class="dropdown-item" href="/bateriaE">Baterías Electricas</a>
                                 <ul class="">
-                                    <li><a class="dropdown-item" href="/rolandE">Roland</a></li>
+                                    <li><a class="dropdown-item" href="#">Roland</a></li>
                                     <li><a class="dropdown-item" href="/alesisE">Alesis</a></li>
                               
                                 </ul>
@@ -97,10 +98,10 @@
                             <li>
                                 <a class="dropdown-item" href="/cajas">Cajas</a>
                                 <ul class="">
-                                    <li><a class="dropdown-item" href="/cajasEngl">ENGL</a></li>
-                                    <li><a class="dropdown-item" href="/cajasMarshall">Marshall</a></li>
-                                    <li><a class="dropdown-item" href="/cajasPavey">Pavey</a></li>
-                                    <li><a class="dropdown-item" href="/cajasEvh">EVH</a></li>
+                                    <li><a class="dropdown-item" href="/cajaEngl">ENGL</a></li>
+                                    <li><a class="dropdown-item" href="/cajaMarshall">Marshall</a></li>
+                                    <li><a class="dropdown-item" href="/cajaPavey">Pavey</a></li>
+                                    <li><a class="dropdown-item" href="/cajaEvh">EVH</a></li>
                                 </ul>
                             
                             </li>
@@ -148,14 +149,14 @@
 
 
 
-    
-    <h1>Baterias Electricas Roland</h1>
+    <div class="container">
+    <h1 class="text-center">Baterias Electricas Roland</h1>
     <div class="row">
         {% for producto in productos %}
             {% if producto.tipo == 'bateria_electrica_roland' %}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ producto.imagen }}"  class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 400px; height: auto;">
+                        <img src="{{ producto.imagen }}"  class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 400px; height: 200px;">
                         <div class="card-body">
                             <h5 class="card-title">{{ producto.nombre }}</h5>
                             <p class="card-text">Precio: ${{ producto.precio| intcomma }}</p>
@@ -169,10 +170,11 @@
             {% endif %}
         {% endfor %}
     </div>
+    </div>
     
 
       
-    <footer class="bg-light text-center text-black">
+    <footer class="bg-light text-center text-black fixed-bottom">
         <div class="container">
           <div class="p-3">
             Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>

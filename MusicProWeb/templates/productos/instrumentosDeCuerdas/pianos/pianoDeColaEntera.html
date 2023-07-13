@@ -97,10 +97,10 @@
                         <li>
                             <a class="dropdown-item" href="/cajas">Cajas</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="/cajasEngl">ENGL</a></li>
-                                <li><a class="dropdown-item" href="/cajasMarshall">Marshall</a></li>
-                                <li><a class="dropdown-item" href="/cajasPavey">Pavey</a></li>
-                                <li><a class="dropdown-item" href="/cajasEvh">EVH</a></li>
+                                <li><a class="dropdown-item" href="/cajaEngl">ENGL</a></li>
+                                <li><a class="dropdown-item" href="/cajaMarshall">Marshall</a></li>
+                                <li><a class="dropdown-item" href="/cajaPavey">Pavey</a></li>
+                                <li><a class="dropdown-item" href="/cajaEvh">EVH</a></li>
                             </ul>
                         
                         </li>
@@ -153,7 +153,7 @@
             {% if producto.tipo == 'piano_cola_entera' %}
             <div class="col-2" style="margin-left:20px">
                 <div class="card" style="width:200px">
-                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
+                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: 200px;">
                         <div class="card-body">
                             <h5 class="card-title">{{ producto.nombre }}</h5>
                             <p class="card-text">Precio: ${{ producto.precio| intcomma }}</p>

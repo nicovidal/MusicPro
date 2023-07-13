@@ -3,6 +3,7 @@
 
 <head>
     {% load static %}
+    {% load humanize %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
@@ -41,7 +42,7 @@
                         </li>
                         <li><a class="dropdown-item" href="/bajos">Bajos</a></li>
                         <ul class="">
-                            <li><a class="dropdown-item" href="/bajoCuatro">Bajos Cuatro Cuerdas</a></li>
+                            <li><a class="dropdown-item" href="#">Bajos Cuatro Cuerdas</a></li>
                             <li><a class="dropdown-item" href="/bajoCinco">Bajos Cinco Cuerdas</a></li>
                             <li><a class="dropdown-item" href="/bajoActivo">Bajos Activos</a></li>
                             <li><a class="dropdown-item" href="/bajoPasivo">Bajos Pasivos</a></li>
@@ -97,10 +98,10 @@
                         <li>
                             <a class="dropdown-item" href="/cajas">Cajas</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="/cajasEngl">ENGL</a></li>
-                                <li><a class="dropdown-item" href="/cajasMarshall">Marshall</a></li>
-                                <li><a class="dropdown-item" href="/cajasPavey">Pavey</a></li>
-                                <li><a class="dropdown-item" href="/cajasEvh">EVH</a></li>
+                                <li><a class="dropdown-item" href="/cajaEngl">ENGL</a></li>
+                                <li><a class="dropdown-item" href="/cajaMarshall">Marshall</a></li>
+                                <li><a class="dropdown-item" href="/cajaPavey">Pavey</a></li>
+                                <li><a class="dropdown-item" href="/cajaEvh">EVH</a></li>
                             </ul>
                         
                         </li>
@@ -126,35 +127,35 @@
     </div>
     <nav class="navbar navbar-light border">
         <div class="container-fluid">
-            {% if user.is_authenticated %}
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form>
-          
-            {% else %}
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="btn btn-primary ms-auto" href="/login/">Login</a>
-            {% endif %}
-
+    
+            <div class="d-flex ms-auto">
+                <a class="btn btn-primary me-2" href="/carrito/">Carro de Compras</a>
+    
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                {% else %}
+                    <a class="btn btn-primary" href="/login/">Login</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
     <!-- navbar-->
 
 
-
-    <h1>Bajos Cuatro Cuerdas </h1>
+    <div class="container">
+    <h1 class="text-center">Bajos Cuatro Cuerdas </h1>
     <div class="row">
         {% for producto in productos %}
             {% if producto.tipo == 'bajo_cuatro_cuerdas' %}
             <div class="col-2" style="margin-left:20px">
                 <div class="card" style="width:200px">
-                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
+                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: 200px;">
                         <div class="card-body">
                             <h5 class="card-title">{{ producto.nombre }}</h5>
                             <p class="card-text">Precio: ${{ producto.precio| intcomma }}</p>
@@ -169,6 +170,7 @@
                 </div>
             {% endif %}
         {% endfor %}
+    </div>
     </div>
 
     

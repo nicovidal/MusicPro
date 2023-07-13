@@ -3,6 +3,7 @@
 
 <head>
     {% load static %}
+    {% load humanize %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
@@ -16,7 +17,7 @@
     <title>MusicPro</title>
 </head>
 <body>
-    <h1 class="text-center">MusicPro</h1>
+    <h1 class="text-center"><a href="/" class="no-link-style">MusicPro</a></h1>
              <!-- navbar-->
              <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
                 <div class="offcanvas-header">
@@ -96,10 +97,10 @@
                                 <li>
                                     <a class="dropdown-item" href="/cajas">Cajas</a>
                                     <ul class="">
-                                        <li><a class="dropdown-item" href="/cajasEngl">ENGL</a></li>
-                                        <li><a class="dropdown-item" href="/cajasMarshall">Marshall</a></li>
-                                        <li><a class="dropdown-item" href="/cajasPavey">Pavey</a></li>
-                                        <li><a class="dropdown-item" href="/cajasEvh">EVH</a></li>
+                                        <li><a class="dropdown-item" href="/cajaEngl">ENGL</a></li>
+                                        <li><a class="dropdown-item" href="/cajaMarshall">Marshall</a></li>
+                                        <li><a class="dropdown-item" href="/cajaPavey">Pavey</a></li>
+                                        <li><a class="dropdown-item" href="/cajaEvh">EVH</a></li>
                                     </ul>
                                 
                                 </li>
@@ -125,35 +126,37 @@
             </div>
             <nav class="navbar navbar-light border">
                 <div class="container-fluid">
-                    {% if user.is_authenticated %}
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <form action="{% url 'logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Logout</button>
-                    </form>
-                  
-                    {% else %}
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <a class="btn btn-primary ms-auto" href="/login/">Login</a>
-                    {% endif %}
-    
+            
+                    <div class="d-flex ms-auto">
+                        <a class="btn btn-primary me-2" href="/carrito/">Carro de Compras</a>
+            
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Logout</button>
+                            </form>
+                        {% else %}
+                            <a class="btn btn-primary" href="/login/">Login</a>
+                        {% endif %}
+                    </div>
                 </div>
             </nav>
-
+        <div class="container">
         <h1 class="text-center">Vendedor:{{  user.first_name }}</h1>
-       
+        </div>
+        <div class="container">
+        <h1 class="text-center">Ventas:</h1>
         <div class="row">
             {% for venta in ventas %}
             {% if venta.estado == 'Procesando'%}
               <div class="col-md-4">
-                <div class="card">
+                <div class="card" style=" margin-top:20px">
                   <div class="card-body">
                     <h5 class="card-title">Número de orden: {{ venta.numero_orden }}</h5>
-                    <p class="card-text">Total: $ {{ venta.total }}</p>
+                    <p class="card-text">Total: $ {{ venta.total|intcomma }}</p>
                     <p class="card-text">Productos: {{ venta.productos }}</p>
                     <p class="card-text">Estado: {{ venta.estado }}</p>
                     <div class="d-flex">
@@ -171,18 +174,21 @@
               </div>
               {%endif%}
             {% endfor %}
-            <h1> No hay ventas xD</h1>
-          </div>
+        
+            </div>
+        </div>
 
-        <h1>Listos para enviar a cliente</h1>
+
+        <div class="container">
+        <h1 class="text-center">Listos para enviar a cliente</h1>
         <div class="row">
             {% for venta in ventas %}
             {% if venta.estado == 'EnviadoVendedor'%}
               <div class="col-md-4">
-                <div class="card">
+                <div class="card" style=" margin-top:20px">
                   <div class="card-body">
                     <h5 class="card-title">Número de orden: {{ venta.numero_orden }}</h5>
-                    <p class="card-text">Total: $ {{ venta.total }}</p>
+                    <p class="card-text">Total: $ {{ venta.total|intcomma }}</p>
                     <p class="card-text">Productos: {{ venta.productos }}</p>
                     <p class="card-text">Estado: {{ venta.estado }}</p>
                     <div class="d-flex">
@@ -191,37 +197,38 @@
                       <button class="btn btn-primary me-2" type="submit">Enviar a cliente</button>
                     </form>
              
-                </div>
+                    </div>
                   </div>
                 </div>
               </div>
               {%endif%}
-            {% endfor %}
-            <h1> No hay envios pendientes</h1>
+            {% endfor %}  
+          </div>
           </div>
           
       
-
-        <h1 class="text-center">Productos en bodega</h1>
+          <div class="container">
+            <h1 class="text-center">Productos en bodega</h1>
         
-        <form method="GET" action="">
-            <div class="mb-3">
-            <label for="nombreProducto" class="form-label">Filtrar por nombre:</label>
-            <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Ingrese el nombre del producto">
-            </div>
-  
-            <button type="submit" class="btn btn-primary">Buscar</button>
-            <a href="?">
-            <button type="button" class="btn btn-secondary">Restablecer</button>
-            </a>
-
-        </form>
-
+            <form method="GET" action="" class="d-flex justify-content-between align-items-center mb-3">
+                <div class="form-group">
+                    <label for="nombreProducto" class="form-label">Filtrar por nombre:</label>
+                    <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Ingrese el nombre del producto">
+                </div>
+          
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-2">Buscar</button>
+                    <a href="?" class="btn btn-secondary">Restablecer</a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="container">
         <div class="row">
         {% for producto in productos %}
         <div class="col-2" style="margin-left:20px ">
         <div class="card" style="width:200px; margin-top:20px; margin-bottom:20px">
-            <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
+            <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: 200px;">
             <div class="card-body">
                 <h5 class="card-title">{{ producto.nombre }}</h5>
                 <p class="card-text">Precio: $${{ producto.precio| intcomma }}</p>
@@ -237,6 +244,7 @@
         </div>
      {% endfor %}
     </div>
+    </div>
 
 
 
@@ -249,7 +257,7 @@
 
 
     
-<footer class="bg-light text-center text-black fixed-bottom">
+<footer class="bg-light text-center text-black ">
     <div class="container">
       <div class="p-3">
         Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
