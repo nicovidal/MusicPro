@@ -7,7 +7,7 @@ class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = ['id','serie_del_producto','marca', 'codigo', 'nombre','precio',
-                  'modelo','oferta','nuevo','stock', 'imagen']
+                  'modelo','oferta','nuevo','stock_tienda','stock_bodega', 'imagen']
 
     def get_imagen(self, obj):
         if obj.imagen:

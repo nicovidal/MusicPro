@@ -369,6 +369,25 @@ def pagar(request):
         print(estado)
     else:
         estado = 'Procesando'
+        # Actualizar el stock de los productos
+        for producto_id, detalle_producto in carrito.items():
+            try:
+                # Obtener el producto de la API
+                response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
+                response.raise_for_status()
+                producto_data = response.json()
+                print(producto_data)
+                
+                # Restar la cantidad del stock_tienda
+                producto_data['producto']['stock_tienda'] -= detalle_producto["cantidad"]
+                
+                # Actualizar el producto en la API
+                response = requests.put(f'http://127.0.0.1:8000/api/productos/{producto_id}/', json=producto_data)
+                response.raise_for_status()
+            except (requests.exceptions.RequestException, ValueError):
+                # Error al obtener o actualizar el producto
+                messages.error(request, 'Error al obtener o actualizar el producto')
+                return HttpResponseServerError("Error al obtener o actualizar el producto")
 
     # Crear la venta con el estado correspondiente
     numero_orden = random.randint(100000, 999999)
@@ -395,6 +414,7 @@ def pagar(request):
     }
 
     return render(request, 'carro/resumen_pago.html', context)
+
 
     
 
