@@ -53,6 +53,33 @@ def homeVendedor(request):
     return render (request,'vendedor/home.html',{'productos':productos ,'ventas':ventas})
 
 
+def contacto(request):
+    comentario = ""
+    
+    if request.method == 'POST':
+        serie_del_producto= request.POST['serie_del_producto']
+        mail_cliente = request.POST['mail_cliente']
+        marca = request.POST['marca']
+        nombre = request.POST['nombre']
+        modelo = request.POST['modelo']
+        comentario = request.POST['comentario']
+
+        contacto = ContactoVendedor.objects.create(
+            serie_del_producto=serie_del_producto,
+            mail_cliente=mail_cliente,
+            marca=marca,
+            nombre=nombre,
+            modelo=modelo,
+            comentario=comentario
+        )
+
+       
+    
+        return render(request, 'vendedor/contacto.html')
+    else:
+        return render(request, 'vendedor/contacto.html', {'comentario': comentario})
+
+
 def actualizar_estado_venta(request, venta_id, estado):
 
     venta = Venta.objects.get(id=venta_id)

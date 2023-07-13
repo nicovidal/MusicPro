@@ -7,20 +7,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         .dropdown:hover .dropdown-menu {
             display: block;
         }
     </style>
-
-    <title>MusicPro</title>
 </head>
 <body>
     <h1 class="text-center"><a href="/" class="no-link-style">MusicPro</a></h1>
-       <!-- navbar-->
-       <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
+      <!-- navbar-->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Categorías</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -35,7 +32,7 @@
                         <li class="">
                             <a class="dropdown-item " href="/guitarras">Guitarra</a>
                             <ul class="">
-                                <li><a class="dropdown-item" href="/solido">Guitarra cuerpo sólido</a></li>
+                                <li><a class="dropdown-item" href="/#">Guitarra cuerpo sólido</a></li>
                                 <li><a class="dropdown-item" href="/acusticas">Guitarra Acústicas</a></li>
                                 <li><a class="dropdown-item" href="/electricas">Guitarra Eléctricas</a></li>
                             </ul>
@@ -66,7 +63,7 @@
                                 <li><a class="dropdown-item" href="/tamaA">Tama</a></li>
                                 <li><a class="dropdown-item" href="/pearlA">Pearl</a></li>
                                 <li><a class="dropdown-item" href="/sonorA">Sonor</a></li>
-                                <li><a class="dropdown-item" href="#">Mapex</a></li>
+                                <li><a class="dropdown-item" href="/mapexA">Mapex</a></li>
                             </ul>
                         </li>
                         
@@ -144,46 +141,55 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        <h1 class="text-center">¿Tienes consultas? Escríbenos</h1>
+        <form method="post" class="text-center" action="{% url 'contacto' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="mail_cliente">Correo electrónico del cliente:</label>
+            <input type="email" name="mail_cliente" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="serie_del_producto">Serie del Producto:</label>
+            <input type="text" name="serie_del_producto" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="marca">Marca:</label>
+            <input type="text" name="marca" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modelo">Modelo:</label>
+            <input type="text" name="modelo" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="comentario">Comentario:</label>
+            <textarea name="comentario" class="form-control" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+      
+      
+    
     
 
     
-    <div class="container">
-    <h1 class="text-center">Baterias Mapex</h1>
-    <div class="row">
-        {% for producto in productos %}
-            {% if producto.tipo == 'bateria_acustica_mapex' %}
-            <div class="col-2" style="margin-left:20px">
-                <div class="card" style="width:200px">
-                    <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: 200px;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ producto.nombre }}</h5>
-                            <p class="card-text">Precio: ${{ producto.precio| intcomma }}</p>
-                            <p class="card-text">Modelo: {{ producto.modelo }}</p>
-                            <p class="card-text">Marca: {{ producto.marca }}</p>      
-                            <form method="post" action="{% url 'agregar_producto' producto.id %}">
-                                {% csrf_token %}
-                                <input type="submit" class="btn btn-primary" value="Agregar al Carrito">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-    </div>
-    
-    
-  
- 
     <footer class="bg-light text-center text-black fixed-bottom">
         <div class="container">
           <div class="p-3">
             Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
             &copy; 2023 - Integración de plataforma
+
           </div>
           <a href="{% url 'contacto' %}" style="background-color: white;">Ir a contacto</a>
         </div>
       </footer>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

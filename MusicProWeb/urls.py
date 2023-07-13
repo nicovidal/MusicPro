@@ -17,6 +17,7 @@ urlpatterns = [
     path('pedidosBodega', pedidos, name="pedidos_bodega"),
     path('login/', login_view, name="login"),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('contacto/', contacto, name='contacto'),
 
     path('carrito/',carrito,name="carrito"),
     path('agregar_producto/<int:producto_id>/', agregar_producto, name='agregar_producto'),

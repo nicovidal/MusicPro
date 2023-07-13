@@ -25,3 +25,15 @@ class Venta(models.Model):
     def __str__(self):
         return str(self.numero_orden)
     
+class ContactoVendedor(models.Model):
+    serie_del_producto=models.CharField(max_length=50,null=True)
+    mail_cliente=models.EmailField(null=True)
+    marca=models.CharField(max_length=50,null=True)
+    nombre=models.CharField(max_length=50,null=True)
+    modelo=models.CharField(max_length=50,null=True)
+    comentario=models.CharField(max_length=50,null=True)
+
+    
+    def __str__(self):
+        return str(self.marca)
+    

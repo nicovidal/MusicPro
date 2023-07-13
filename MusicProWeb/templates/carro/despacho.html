@@ -264,7 +264,7 @@
                     <td><button type="submit" {% if total_carrito <= 0 %} disabled {% endif%} class="btn btn-primary btn-lg">Pago WebPay</button></td>
                   </tr>
                   <tr>
-                    <td><button type="submit" formaction="{% url 'transferencia_page' %}" class="btn btn-primary btn-lg">Transferencia Bancaria</button></td>
+                    <td><button type="submit" {% if total_carrito <= 0 %} disabled {% endif%} formaction="{% url 'transferencia_page' %}" class="btn btn-primary btn-lg">Transferencia Bancaria</button></td>
                   </tr>
           
                 </tbody>
