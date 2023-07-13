@@ -84,7 +84,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Amplicifadores
+                            Amplificadores
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             <li>
@@ -175,7 +175,7 @@
           <h1>No hay pedidos pendientes</h1>
         </div>
 
-        <h1>Depachos</h1>
+        <h1>Despachos</h1>
         <div class="row">
           {% for venta in ventas %}
           {% if venta.estado == 'Preparando'%}
@@ -225,7 +225,7 @@
                 <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: auto;">
                 <div class="card-body">
                   <h5 class="card-title">{{ producto.nombre }}</h5>
-                  <p class="card-text">Precio: ${{ producto.precio }}</p>
+                  <p class="card-text">Precio: $${{ producto.precio| intcomma }}</p>
                   <p class="card-text">Modelo: {{ producto.modelo }}</p>
                   <p class="card-text">Marca: {{ producto.marca }}</p> 
                   <p class="card-text">Stock en bodega: {{ producto.stock_bodega }}</p>    

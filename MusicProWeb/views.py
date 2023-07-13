@@ -24,7 +24,7 @@ import json
 
 
 
-# Create your views here.
+
 
 def homeUsuario(request):
     ventas = Venta.objects.filter(idUser=request.user)
@@ -44,7 +44,7 @@ def homeVendedor(request):
     except JSONDecodeError:
         productos = []
     
-     # Obtener el valor del filtro del formulario
+
     filtro_nombre = request.GET.get('nombreProducto')
 
     # Aplicar el filtro por nombre si se proporciona    
@@ -54,70 +54,69 @@ def homeVendedor(request):
 
 
 def actualizar_estado_venta(request, venta_id, estado):
-    # Obtener la venta por su ID
+
     venta = Venta.objects.get(id=venta_id)
     
     # Actualizar el estado de la venta
     venta.estado = estado
     venta.save()
     
-    # Redirigir de vuelta a la página de inicio del vendedor
+
     return redirect('home_vendedor')
 
 def actualizar_estado_pedido(request, venta_id, estado):
-    # Obtener la venta por su ID
+
     venta = Venta.objects.get(id=venta_id)
     
-    # Actualizar el estado de la venta
+
     venta.estado = estado
     venta.save()
     
-    # Redirigir de vuelta a la página de inicio del vendedor
+  
     return redirect('home_bodeguero')
 
 
 def actualizar_estado_despachado(request, venta_id, estado):
-    # Obtener la venta por su ID
+
     venta = Venta.objects.get(id=venta_id)
     
-    # Actualizar el estado de la venta
+  
     venta.estado = estado
     venta.save()
     
-    # Redirigir de vuelta a la página de inicio del vendedor
+
     return redirect('home_bodeguero')
 
 def actualizar_estado_enviado_cliente(request, venta_id, estado):
-    # Obtener la venta por su ID
+
     venta = Venta.objects.get(id=venta_id)
     
-    # Actualizar el estado de la venta
+  
     venta.estado = estado
     venta.save()
     
-    # Redirigir de vuelta a la página de inicio del vendedor
+  
     return redirect('home_vendedor')
 
 def actualizar_estado_entregado(request, venta_id, estado):
-    # Obtener la venta por su ID
+
     venta = Venta.objects.get(id=venta_id)
     
-    # Actualizar el estado de la venta
+
     venta.estado = estado
     venta.save()
-    
-    # Redirigir de vuelta a la página de inicio del vendedor
+
     return redirect('home_contador')
 
 def actualizar_estado_transferencia(request, venta_id, estado):
-    # Obtener la venta por su ID
+
     venta = Venta.objects.get(id=venta_id)
     
-    # Actualizar el estado de la venta
+   
     venta.estado = estado
     venta.save()
     
-    # Redirigir de vuelta a la página de inicio del vendedor
+    
     return redirect('home_contador')
 
 
@@ -230,24 +229,24 @@ def create_cliente(request):
     if request.method == 'POST':
         form = ClienteCreationForm(request.POST)
         if form.is_valid():
-            # Obtén los datos del formulario
+       
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             
-            # Genera un nombre de usuario único basado en el correo electrónico
-            username = email  # Utiliza el correo electrónico como nombre de usuario
+          
+            username = email  
 
-            # Crea el usuario en Django
-            user = CustomUser.objects.create_user(username=username, email=email, password=password)  # Utiliza CustomUser en lugar de User
+          
+            user = CustomUser.objects.create_user(username=username, email=email, password=password) 
             user.first_name = first_name
             user.last_name = last_name
-            user.user_type = 'Cliente'# Guarda el tipo de usuario
+            user.user_type = 'Cliente'
             user.save()
 
-            # Redirige a la página de inicio de sesión
-            return redirect("login")  # Redirige a una página de éxito
+           
+            return redirect("login") 
         else:
             error_message = 'Formulario inválido'
     else:
@@ -266,14 +265,14 @@ def create_cliente(request):
 """Carrito"""
 def carrito(request):
     carrito = Carrito(request)
-    productos = carrito.get_productos()  # Obtener los productos del carrito
+    productos = carrito.get_productos() 
     total = total_carrito(request)
 
     return render(request, 'carro/carrito.html', {'productos': productos, 'total_carrito': total['total_carrito'],'descuento': total['descuento']})
 
 def despacho(request):
     carrito = Carrito(request)
-    productos = carrito.get_productos()  # Obtener los productos del carrito
+    productos = carrito.get_productos() 
     total = total_carrito(request)
  
     return render(request, 'carro/despacho.html', {'productos': productos, 'total_carrito': total['total_carrito']})
@@ -284,32 +283,32 @@ def despacho(request):
 def agregar_producto(request, producto_id):
     try:
         response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
-        response.raise_for_status()  # Verificar si la solicitud fue exitosa
+        response.raise_for_status() 
         producto_data = response.json()
         
         carrito = Carrito(request)
         carrito.agregar(producto_data)
         
-        messages.success(request, 'Producto agregado correctamente')  # Agregar el mensaje de éxito
-        return redirect(reverse('carrito'))  # Redirigir al carrito de compras
+        messages.success(request, 'Producto agregado correctamente')  
+        return redirect(reverse('carrito')) 
     except (requests.exceptions.RequestException, ValueError):
-        messages.error(request, 'Error al agregar el producto al carrito')  # Agregar el mensaje de error
-        return HttpResponseServerError("Error al agregar el producto al carrito")  # Redirigir a una página de error
+        messages.error(request, 'Error al agregar el producto al carrito') 
+        return HttpResponseServerError("Error al agregar el producto al carrito")  
     
 def agregar_producto_pedido(request, producto_id):
     try:
         response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
-        response.raise_for_status()  # Verificar si la solicitud fue exitosa
+        response.raise_for_status()  
         producto_data = response.json()
         
         carrito = Carrito(request)
         carrito.agregar(producto_data)
         
-        messages.success(request, 'Producto agregado correctamente')  # Agregar el mensaje de éxito
-        return redirect(reverse('carrito'))  # Redirigir al carrito de compras
+        messages.success(request, 'Producto agregado correctamente')  
+        return redirect(reverse('carrito'))  
     except (requests.exceptions.RequestException, ValueError):
-        messages.error(request, 'Error al agregar el producto al carrito')  # Agregar el mensaje de error
-        return HttpResponseServerError("Error al agregar el producto al carrito")  # Redirigir a una página de error
+        messages.error(request, 'Error al agregar el producto al carrito')  
+        return HttpResponseServerError("Error al agregar el producto al carrito") 
 
 def total_carrito(request):
     total = 0
@@ -319,8 +318,7 @@ def total_carrito(request):
 
     descuento = 0
     if request.user.is_authenticated and len(request.session["carrito"]) > 4:
-        descuento = total * 0.2  # Calcular el descuento del 50%
-
+        descuento = total * 0.2  
     total_con_descuento = total - descuento
 
     return {"total_carrito": total_con_descuento, "descuento": descuento}
@@ -328,12 +326,6 @@ def total_carrito(request):
 
 
 
-
-
-
-
-
-# ...
 
 def pagar(request):
     monto_total = total_carrito(request)["total_carrito"]
