@@ -3,6 +3,7 @@
 
 <head>
     {% load static %}
+    {% load humanize %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
@@ -162,7 +163,7 @@
                     <tr>
                         <td><img src="{{ value.imagen }}" class="card-img-top img-fluid" alt="{{ value.nombre }}" style="width: 100px; height: 200px;"></td>
                         <td>{{ value.nombre }}</td>
-                        <td>${{ value.precio }}</td>
+                        <td>${{ value.precio |intcomma}}</td>
                         <td>${{ value.acumulado }}</td>
                         <td>
                             <a href="{% url 'Sub' value.id %}" class="badge btn btn-dark badge-dark" {% if value.cantidad <= 1 %} disabled {% endif%}>-</a> 
@@ -180,12 +181,12 @@
                     {% endif %}
                     <tr>
                         <th scope="row">Descuento:</th>
-                        <td colspan="2" id="descuento" name="descuento">$ {{ descuento }}</td>
+                        <td colspan="2" id="descuento" name="descuento">$ {{ descuento|intcomma }}</td>
                     </tr>
         
                     <tr>
                         <th scope="row">Total:</th>
-                        <td colspan="2" id="total_carrito" name="total_carrito">$ {{ total_carrito }}</td>
+                        <td colspan="2" id="total_carrito" name="total_carrito">$ {{ total_carrito |intcomma }}</td>
                     </tr>
                 </tbody>
                 <tr>

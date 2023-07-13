@@ -332,7 +332,7 @@ def pagar(request):
 
     commerce_code = 597055555532
     api_key = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
-    integration_type = "TEST"  
+    integration_type = "TEST"
     transaction = Transaction()
     transaction.commerce_code = commerce_code
     transaction.api_key = api_key
@@ -363,9 +363,15 @@ def pagar(request):
     print("Productos:", productos)
     print("Cantidad total:", cantidad_total)
 
-    # Crear la venta con transferencia=False
+    # Verificar si el pago fue rechazado
+    if response.get('status') == 'payment_rejected':
+        estado = 'Rechazado'
+        print(estado)
+    else:
+        estado = 'Procesando'
+
+    # Crear la venta con el estado correspondiente
     numero_orden = random.randint(100000, 999999)
-    estado = 'Procesando'
     venta = Venta.objects.create(
         numero_orden=numero_orden,
         total=monto_total,
@@ -389,6 +395,7 @@ def pagar(request):
     }
 
     return render(request, 'carro/resumen_pago.html', context)
+
     
 
 def transferencia_page(request):
@@ -436,12 +443,24 @@ def transferencia(request):
 
     return redirect('orden_despacho')
 
+def payment_rejected_logic(token_ws):
+    # Aquí debes implementar la lógica para verificar si el pago fue rechazado
+    # Puedes utilizar el token_ws para obtener los detalles de la transacción desde tu proveedor de pagos
+
+    # Por ejemplo, supongamos que si el token_ws contiene la cadena "rejected", consideramos que el pago fue rechazado
+    if "rejected" in token_ws:
+        return True
+    else:
+        return False
 
 def orden_despacho(request):
     if request.method == 'POST':
         # Obtener datos de la notificación de Webpay
         token_ws = request.POST.get('token_ws')
 
+        # Verificar si el pago fue rechazado
+        if payment_rejected_logic(token_ws):
+            return redirect('orden_rechazada')
         # Redirigir al usuario a una página de confirmación o mostrar un mensaje de éxito
         return render(request, 'carro/orden_despacho.html', {"token": token_ws})
 
