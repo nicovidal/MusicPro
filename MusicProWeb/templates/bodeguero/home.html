@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     {% load static %}
+    {% load humanize %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static '/css/index.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/main.css' %}"> 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -20,7 +21,7 @@
     <title>MusicPro</title>
   </head>
   <body>
-    <h1 class="text-center">MusicPro</h1>
+    <h1 class="text-center"><a href="/" class="no-link-style">MusicPro</a></h1>
         <!-- navbar-->
         <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarToggleExternalContent">
             <div class="offcanvas-header">
@@ -147,9 +148,9 @@
   
           </div>
       </nav>
-
+      <div class="container">
         <h1 class="text-center">Bodega</h1>
-        <h1>Ordenes de pedido:</h1>
+        <h1 class="text-center" >Ordenes de pedido:</h1>
         <div class="row">
           {% for venta in ventas %}
           {% if venta.estado == 'Aceptado'%}
@@ -157,7 +158,7 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Número de orden: {{ venta.numero_orden }}</h5>
-                  <p class="card-text">Total: $ {{ venta.total }}</p>
+                  <p class="card-text">Total: $ {{ venta.total |intcomma }}</p>
                   <p class="card-text">Productos: {{ venta.productos }}</p>
                   <p class="card-text">Estado: {{ venta.estado }}</p>
                   <div class="d-flex">
@@ -172,10 +173,11 @@
             </div>
             {% endif %}
           {% endfor %}
-          <h1>No hay pedidos pendientes</h1>
+         
         </div>
-
-        <h1>Despachos</h1>
+        </div>
+        <div class="container">
+        <h1 class="text-center">Despachos</h1>
         <div class="row">
           {% for venta in ventas %}
           {% if venta.estado == 'Preparando'%}
@@ -199,41 +201,7 @@
             {%endif%}
           {% endfor %}
         </div>
-
-
-
-        
-{% comment %}         <h1>Productos en bodega</h1>
-        
-        <form method="GET" action="">
-          <div class="mb-3">
-            <label for="nombreProducto" class="form-label">Filtrar por nombre:</label>
-            <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Ingrese el nombre del producto">
-          </div>
-          
-          <button type="submit" class="btn btn-primary">Buscar</button>
-          <a href="?">
-            <button type="button" class="btn btn-secondary">Restablecer</button>
-          </a>
-
-        </form>
-        
-        <div class="row">
-          {% for producto in productos %}
-            <div class="col-2" style="margin-left:20px ">
-              <div class="card" style="width:200px; margin-top:20px; margin-bottom:20px">
-                <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: 200px;">
-                <div class="card-body">
-                  <h5 class="card-title">{{ producto.nombre }}</h5>
-                  <p class="card-text">Precio: $${{ producto.precio| intcomma }}</p>
-                  <p class="card-text">Modelo: {{ producto.modelo }}</p>
-                  <p class="card-text">Marca: {{ producto.marca }}</p> 
-                  <p class="card-text">Stock en bodega: {{ producto.stock_bodega }}</p>    
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div> {% endcomment %}
+        </div>
     
 
     <footer class="bg-light text-center text-black fixed-bottom">
