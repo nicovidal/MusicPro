@@ -151,7 +151,7 @@
     <h1 class="text-center">Cables</h1>
     <div class="row">
         {% for producto in productos %}
-            {% if producto.tipo == 'cable' %}
+            {% if producto.tipo == 'cables' %}
             <div class="col-2" style="margin-left:20px">
                 <div class="card" style="width:200px">
                     <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: 200px;">
@@ -173,7 +173,7 @@
     </div>
 
     
-    <footer class="bg-light text-center text-black ">
+    <footer class="bg-light text-center text-black fixed-bottom ">
         <div class="text-center p-3">
             Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>
             &copy; 2023 - Integración de plataforma

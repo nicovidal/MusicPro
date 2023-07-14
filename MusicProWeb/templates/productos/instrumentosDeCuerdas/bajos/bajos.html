@@ -159,7 +159,7 @@
                     <img src="{{ producto.imagen }}" class="card-img-top img-fluid" alt="{{ producto.nombre }}" style="width: 200px; height: 200px;">
                     <div class="card-body">
                         <h5 class="card-title">{{ producto.nombre }}</h5>
-                        <p class="card-text">Precio: $${{ producto.precio| intcomma }}</p>
+                        <p class="card-text">Precio: ${{ producto.precio| intcomma }}</p>
                         <p class="card-text">Modelo: {{ producto.modelo }}</p>
                         <p class="card-text">Marca: {{ producto.marca }}</p>    
                         <form method="post" action="{% url 'agregar_producto' producto.id %}">
@@ -175,7 +175,7 @@
     </div>
     
 
-    <footer class="bg-light text-center text-black fixed-bottom">
+    <footer class="bg-light text-center text-black">
         <div class="container">
           <div class="p-3">
             Matias Cisternas - Javier Rodriguez - Sebastian Vasquez - Nicolas Vidal<br>

@@ -225,24 +225,21 @@ def create_user(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            # Obtén los datos del formulario
+        
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            
-            # Genera un nombre de usuario único basado en el correo electrónico
-            username = email  # Utiliza el correo electrónico como nombre de usuario
+   
+            username = email 
 
-            # Crea el usuario en Django
-            user = CustomUser.objects.create_user(username=username, email=email, password=password)  # Utiliza CustomUser en lugar de User
-            user.first_name = first_name
+            user = CustomUser.objects.create_user(username=username, email=email, password=password)  
             user.last_name = last_name
-            user.user_type = form.cleaned_data['user_type']  # Guarda el tipo de usuario
+            user.user_type = form.cleaned_data['user_type']  
             user.save()
 
-            # Redirige a la página de inicio de sesión
-            return redirect("login")  # Redirige a una página de éxito
+
+            return redirect("login")  
         else:
             error_message = 'Formulario inválido'
     else:
