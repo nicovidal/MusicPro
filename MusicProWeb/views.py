@@ -397,7 +397,7 @@ def pagar(request):
         # Actualizar el stock de los productos
         for producto_id, detalle_producto in carrito.items():
             try:
-                # Obtener el producto de la API
+             
                 response = requests.get(f'http://127.0.0.1:8000/api/productos/{producto_id}/')
                 response.raise_for_status()
                 producto_data = response.json()
@@ -405,16 +405,15 @@ def pagar(request):
                 
                 # Restar la cantidad del stock_tienda
                 producto_data['producto']['stock_tienda'] -= detalle_producto["cantidad"]
-                
-                # Actualizar el producto en la API
+         
                 response = requests.put(f'http://127.0.0.1:8000/api/productos/{producto_id}/', json=producto_data)
                 response.raise_for_status()
             except (requests.exceptions.RequestException, ValueError):
-                # Error al obtener o actualizar el producto
+             
                 messages.error(request, 'Error al obtener o actualizar el producto')
                 return HttpResponseServerError("Error al obtener o actualizar el producto")
 
-    # Crear la venta con el estado correspondiente
+
     numero_orden = random.randint(100000, 999999)
     venta = Venta.objects.create(
         numero_orden=numero_orden,
@@ -427,7 +426,7 @@ def pagar(request):
         transferencia=False
     )
 
-    # Crear las instancias de VentaProducto y relacionarlas con la venta
+
 
     context = {
         'redirect_url': redirect_url,
@@ -489,10 +488,7 @@ def transferencia(request):
     return redirect('orden_despacho')
 
 def payment_rejected_logic(token_ws):
-    # Aquí debes implementar la lógica para verificar si el pago fue rechazado
-    # Puedes utilizar el token_ws para obtener los detalles de la transacción desde tu proveedor de pagos
 
-    # Por ejemplo, supongamos que si el token_ws contiene la cadena "rejected", consideramos que el pago fue rechazado
     if "rejected" in token_ws:
         return True
     else:
@@ -500,13 +496,12 @@ def payment_rejected_logic(token_ws):
 
 def orden_despacho(request):
     if request.method == 'POST':
-        # Obtener datos de la notificación de Webpay
+
         token_ws = request.POST.get('token_ws')
 
-        # Verificar si el pago fue rechazado
         if payment_rejected_logic(token_ws):
             return redirect('orden_rechazada')
-        # Redirigir al usuario a una página de confirmación o mostrar un mensaje de éxito
+  
         return render(request, 'carro/orden_despacho.html', {"token": token_ws})
 
     elif request.method == 'GET':
@@ -516,33 +511,31 @@ def orden_despacho(request):
 
         return render(request, 'carro/orden_despacho.html', {"token": token_ws})
 
-    # Si no es una solicitud POST o GET, redirigir a alguna otra página o mostrar un mensaje de error
+
     return HttpResponse("Método de solicitud no válido.")
 
 
 
 def btn_agregar_producto(request, id):
-    # Hacer una solicitud a la API para obtener los detalles del producto
+
     if id is not None:
         api_url = f"http://127.0.0.1:8000/api/productos/{id}/"
         response = requests.get(api_url)
 
-        # Verificar si la solicitud fue exitosa
         if response.status_code == 200:
             producto = response.json()
 
-            # Inicializar el diccionario 'carrito' si no existe
             if 'carrito' not in request.session:
                 request.session['carrito'] = {}
 
-            # Verificar si el producto ya está en el carrito
+          
             if str(id) in request.session['carrito']:
-                # Si el producto ya está en el carrito, incrementa la cantidad
+       
                 request.session['carrito'][str(id)]['cantidad'] += 1
                 request.session['carrito'][str(id)]['acumulado'] += producto['producto']['precio']
                 print(request.session['carrito'])
             else:
-                # Si el producto no está en el carrito, agrégalo con una cantidad de 1
+       
                 nombre = producto['nombre']
                 precio = producto['precio']
                 imagen = producto['imagen']
@@ -555,33 +548,31 @@ def btn_agregar_producto(request, id):
                     'imagen': imagen,
                 }
 
-            # Guarda los cambios en el carrito
             request.session.modified = True
 
-            # Redirige al usuario a la página del carrito o a donde desees
-            return redirect('carrito')  # Reemplaza 'carrito' con la URL correcta
+
+            return redirect('carrito') 
         else:
-            # Si la solicitud a la API falla, muestra un mensaje de error o redirige a una página de error
-            return redirect('error')  # Reemplaza 'error' con la URL correcta para la página de error
+         
+            return redirect('error')  
         
 def btn_quitar_producto(request, id):
-    # Verificar si el producto ya está en el carrito
+
     if 'carrito' in request.session and str(id) in request.session['carrito']:
-        # Obtener los detalles del producto desde el carrito
+  
         producto = request.session['carrito'][str(id)]
 
-        # Decrementar la cantidad solo si es mayor que 0
         if producto['cantidad'] > 0:
             producto['cantidad'] -= 1
             producto['acumulado'] -= producto['precio']
             print(request.session['carrito'])
 
-            # Eliminar el producto del carrito si la cantidad llega a 0
+     
             if producto['cantidad'] == 0:
                 del request.session['carrito'][str(id)]
 
-            # Guardar los cambios en el carrito
+         
             request.session.modified = True
 
-    # Redirigir al usuario a la página del carrito o a donde desees
-    return redirect('carrito')  # Reemplaza 'carrito' con la URL correcta
+
+    return redirect('carrito')  
